@@ -1,9 +1,10 @@
+// pages/api/config.ts (eller .js hvis du bruker JS)
 export default function handler(req, res) {
   res.status(200).json({
+    openai_api_key: process.env.OPENAI_API_KEY,  // sikre variabler fra Vercel
     language: "no",
     volume: 60,
     gtts_voice: "no",
-    wake_word: "hei",
-    openai_api_key: process.env.OPENAI_API_KEY || ""
+    wake_word: "hei"
   });
 }
