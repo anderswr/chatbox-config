@@ -3,9 +3,14 @@ import time
 import speech_recognition as sr
 from gtts import gTTS
 from openai import OpenAI
+from dotenv import load_dotenv
+
 
 # Sett inn din OpenAI API-nøkkel
-client = OpenAI(api_key="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")
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+
 
 recognizer = sr.Recognizer()
 microphone = sr.Microphone()
