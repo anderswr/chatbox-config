@@ -1,0 +1,7 @@
+{
+  "language": "no",
+  "volume": 60,
+  "gtts_voice": "no",
+  "wake_word": "hei",
+  "openai_api_key": "*****"
+}
