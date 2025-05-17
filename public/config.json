@@ -3,6 +3,5 @@ export default function handler(req, res) {
     language: "no",
     volume: 60,
     gtts_voice: "no",
-    wake_word: "hei"
   });
 }
