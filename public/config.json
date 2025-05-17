@@ -1,7 +1,0 @@
-export default function handler(req, res) {
-  res.status(200).json({
-    language: "no",
-    volume: 60,
-    gtts_voice: "no",
-  });
-}
