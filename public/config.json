@@ -1,7 +1,9 @@
-{
-  "language": "no",
-  "volume": 60,
-  "gtts_voice": "no",
-  "wake_word": "hei",
-  "openai_api_key": "*****"
+export default function handler(req, res) {
+  res.status(200).json({
+    language: "no",
+    volume: 60,
+    gtts_voice: "no",
+    wake_word: "hei",
+    openai_api_key: process.env.OPENAI_API_KEY || ""
+  });
 }
