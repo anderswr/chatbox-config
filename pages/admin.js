@@ -1,65 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Admin() {
-  // Defaultverdier, kan hentes fra backend senere
-  const [systemPrompt, setSystemPrompt] = useState(
-    "her kommer teksten du kan editere på nettsiden"
-  );
-  const [speakText, setSpeakText] = useState(
-    "en tekst du kan redigere på nettsiden"
-  );
+  const [systemPrompt, setSystemPrompt] = useState("");
+  const [speakText, setSpeakText] = useState("");
 
-  // Her kan du legge til lagring til backend / API senere
-  const handleSave = () => {
-    alert("Tekstene er lagret (funksjonalitet kan bygges videre)");
-  };
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const res = await fetch("/api/update-config", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ system_prompt: systemPrompt, speak_text: speakText }),
+    });
+    if (res.ok) alert("Oppdatert!");
+    else alert("Feil ved oppdatering");
+  }
 
   return (
-    <div
-      style={{
-        maxWidth: "600px",
-        margin: "3rem auto",
-        fontFamily:
-          "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      }}
-    >
-      <h1>Admin: Rediger samtalepartneren Liv</h1>
-
-      <label htmlFor="systemPrompt" style={{ fontWeight: "bold" }}>
-        System prompt:
-      </label>
-      <textarea
-        id="systemPrompt"
-        value={systemPrompt}
-        onChange={(e) => setSystemPrompt(e.target.value)}
-        rows={5}
-        style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
-      />
-
-      <label htmlFor="speakText" style={{ fontWeight: "bold" }}>
-        Speak tekst:
-      </label>
-      <textarea
-        id="speakText"
-        value={speakText}
-        onChange={(e) => setSpeakText(e.target.value)}
-        rows={3}
-        style={{ width: "100%", padding: "0.5rem", marginBottom: "1rem" }}
-      />
-
-      <button
-        onClick={handleSave}
-        style={{
-          padding: "0.5rem 1rem",
-          backgroundColor: "#0070f3",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        Lagre
-      </button>
-    </div>
+    <main className="p-4 max-w-xl mx-auto">
+      <h1 className="text-xl font-bold mb-4">Rediger Samtalepartneren Liv</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block font-medium">System Prompt</label>
+          <textarea value={systemPrompt} onChange={e => setSystemPrompt(e.target.value)} className="w-full p-2 border rounded" />
+        </div>
+        <div>
+          <label className="block font-medium">Starttekst (speak)</label>
+          <textarea value={speakText} onChange={e => setSpeakText(e.target.value)} className="w-full p-2 border rounded" />
+        </div>
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Lagre</button>
+      </form>
+    </main>
   );
 }
