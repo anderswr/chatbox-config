@@ -8,7 +8,7 @@ export default function Home() {
   };
 
   return (
-    <div style={{ fontFamily: "sans-serif", lineHeight: "1.6" }}>
+    <div style={{ fontFamily: "sans-serif", lineHeight: "1.6", display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {/* Del 1 */}
       <section
         style={{
@@ -47,9 +47,24 @@ export default function Home() {
         <img
           src="/boksen.png"
           alt="Liv boks"
-          style={{ maxWidth: "250px", height: "auto", marginLeft: "2rem" }}
+          style={{
+            maxHeight: "350px",
+            width: "auto",
+            marginLeft: "2rem",
+            marginTop: "1rem",
+          }}
         />
       </section>
+
+      {/* Spacer for innhold hvis ønskelig */}
+      <div style={{ flex: "1" }} />
+
+      {/* Footer */}
+      <footer style={{ padding: "1rem", textAlign: "center", backgroundColor: "#f3f4f6" }}>
+        <p style={{ fontSize: "0.875rem", color: "#4b5563" }}>
+          © {new Date().getFullYear()} <a href="https://www.dmz.no" target="_blank" rel="noopener noreferrer" style={{ color: "#2563eb", textDecoration: "none" }}>DMZ DATA AS</a>. Alle rettigheter reservert.
+        </p>
+      </footer>
     </div>
   );
 }
