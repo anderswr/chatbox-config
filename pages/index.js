@@ -24,9 +24,9 @@ export default function Home() {
       >
         <div>
           <h1 style={{ fontSize: "3rem", fontWeight: "bold", marginBottom: "0.5rem" }}>Liv</h1>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: "600" }}>En samtale-partner for alle</h2>
+          <h2 style={{ fontSize: "1.5rem", fontWeight: "600" }}>En samtalepartner for alle</h2>
           <p style={{ marginTop: "1rem" }}>
-            Liv er en enkel boks som gir selskap og støtte
+            Liv er en enkel boks som gir selskap og støtte, hvis du trenger noen å snakke med. Den er kunnskapsrik og kan tilpasses ditt behov.
           </p>
           <button
             onClick={handleClick}
