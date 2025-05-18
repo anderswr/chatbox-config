@@ -1,9 +1,6 @@
-// pages/admin.js
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
 export default function Admin() {
-  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,12 +19,22 @@ export default function Admin() {
     }
   }, [isLoggedIn]);
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
-    if (username === "PIADMIN" && password === process.env.NEXT_PUBLIC_PIADMIN_PWD) {
-      setIsLoggedIn(true);
+    if (username === "PIADMIN") {
+      const res = await fetch("/api/check-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const result = await res.json();
+      if (result.ok) {
+        setIsLoggedIn(true);
+      } else {
+        alert("Feil passord");
+      }
     } else {
-      alert("Feil brukernavn eller passord");
+      alert("Feil brukernavn");
     }
   }
 
