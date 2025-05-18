@@ -21,7 +21,7 @@ export default function Admin() {
 
   async function handleLogin(e) {
     e.preventDefault();
-    if (username === "PIADMIN") {
+    if (username === "boks1") {
       const res = await fetch("/api/check-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,7 +34,7 @@ export default function Admin() {
         alert("Feil passord");
       }
     } else {
-      alert("Feil brukernavn");
+      alert("Feil brukernavn, kan det være lurt å prøve boks1 kanskje");
     }
   }
 
