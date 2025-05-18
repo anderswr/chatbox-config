@@ -45,36 +45,11 @@ export default function Home() {
           </button>
         </div>
         <img
-          src="/del1.png"
+          src="/boksen.png"
           alt="Liv boks"
           style={{ maxWidth: "250px", height: "auto", marginLeft: "2rem" }}
         />
       </section>
-
-      {/* Del 2 */}
-      <section
-        style={{
-          padding: "3rem 1rem",
-          backgroundColor: "#f9fafb",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <img
-          src="/del2-ikoner1.png"
-          alt="Ikoner"
-          style={{ height: "100px", width: "auto" }}
-        />
-      </section>
-
-      {/* Del 3 */}
-      <footer>
-        <img
-          src="/del3.png"
-          alt="Footer grafikk"
-          style={{ width: "100%", height: "auto" }}
-        />
-      </footer>
     </div>
   );
 }
