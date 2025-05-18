@@ -1,65 +1,80 @@
-import { useState } from "react";
-import LoginForm from "../components/LoginForm";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
 
-  const handleLogin = (username, password) => {
-    return new Promise((resolve, reject) => {
-      if (
-        username === "PIADMIN" &&
-        password === process.env.NEXT_PUBLIC_PIADMIN_PWD
-      ) {
-        setIsLoggedIn(true);
-        resolve();
-      } else {
-        reject();
-      }
-    });
+  const handleClick = () => {
+    router.push("/admin");
   };
 
-  if (isLoggedIn) {
-    // Redirect eller link til admin-siden
-    return (
-      <div style={{ padding: "2rem" }}>
-        <h1>Du er logget inn!</h1>
-        <p>
-          Gå til <a href="/admin">Admin siden</a> for å redigere system prompt og
-          speak-tekst.
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <header
+    <div style={{ fontFamily: "sans-serif", lineHeight: "1.6" }}>
+      {/* Del 1 */}
+      <section
         style={{
           display: "flex",
-          justifyContent: "flex-end",
-          padding: "1rem",
-          borderBottom: "1px solid #ddd",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "2rem",
+          background: "linear-gradient(to right, #d9f99d, #fef08a)",
+          borderBottomLeftRadius: "2rem",
+          borderBottomRightRadius: "2rem",
         }}
       >
-        <LoginForm onLogin={handleLogin} />
-      </header>
+        <div>
+          <h1 style={{ fontSize: "3rem", fontWeight: "bold", marginBottom: "0.5rem" }}>Liv</h1>
+          <h2 style={{ fontSize: "1.5rem", fontWeight: "600" }}>En samtale-partner for alle</h2>
+          <p style={{ marginTop: "1rem" }}>
+            Liv er en enkel boks som gir selskap og støtte
+          </p>
+          <button
+            onClick={handleClick}
+            style={{
+              marginTop: "1.5rem",
+              padding: "0.75rem 1.5rem",
+              backgroundColor: "#2563eb",
+              color: "white",
+              border: "none",
+              borderRadius: "0.75rem",
+              fontSize: "1rem",
+              cursor: "pointer",
+            }}
+          >
+            Logg inn
+          </button>
+        </div>
+        <img
+          src="/del1.png"
+          alt="Liv boks"
+          style={{ maxWidth: "250px", height: "auto", marginLeft: "2rem" }}
+        />
+      </section>
 
-      <main
+      {/* Del 2 */}
+      <section
         style={{
-          maxWidth: "600px",
-          margin: "3rem auto",
-          padding: "0 1rem",
-          fontFamily:
-            "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-          lineHeight: "1.6",
+          padding: "3rem 1rem",
+          backgroundColor: "#f9fafb",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <h1>Velkommen til samtalepartneren Liv</h1>
-        <p>
-          Alle trenger noen å snakke med for å beholde god psykisk helse og humør.
-          Liv er her for å lytte og gi deg støtte når du trenger det.
-        </p>
-      </main>
+        <img
+          src="/del2-ikoner1.png"
+          alt="Ikoner"
+          style={{ height: "100px", width: "auto" }}
+        />
+      </section>
+
+      {/* Del 3 */}
+      <footer>
+        <img
+          src="/del3.png"
+          alt="Footer grafikk"
+          style={{ width: "100%", height: "auto" }}
+        />
+      </footer>
     </div>
   );
 }
