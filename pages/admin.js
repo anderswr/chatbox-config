@@ -80,7 +80,7 @@ export default function Admin() {
     return (
       <div style={layoutStyle}>
         <div style={containerStyle}>
-          <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Admin Innlogging</h1>
+          <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Innlogging for å tilpasse boks1 din</h1>
           <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             <input
               style={{ padding: "0.75rem", border: "1px solid #ccc", borderRadius: "0.5rem" }}
@@ -120,10 +120,10 @@ export default function Admin() {
   return (
     <div style={layoutStyle}>
       <div style={containerStyle}>
-        <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Rediger Samtalepartneren Liv</h1>
+        <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Tilpass samtalepartneren</h1>
         <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <div>
-            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>System Prompt</label>
+            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>Hvem er boksen, hvordan skal den svare?(system prompt)</label>
             <textarea
               value={systemPrompt}
               onChange={(e) => setSystemPrompt(e.target.value)}
@@ -132,7 +132,7 @@ export default function Admin() {
             />
           </div>
           <div>
-            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>Starttekst (speak)</label>
+            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>Oppstarts setning (speak_text)</label>
             <textarea
               value={speakText}
               onChange={(e) => setSpeakText(e.target.value)}
