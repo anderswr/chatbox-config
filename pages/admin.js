@@ -49,56 +49,115 @@ export default function Admin() {
     else alert("Kunne ikke lagre");
   }
 
+  const layoutStyle = {
+    fontFamily: "sans-serif",
+    lineHeight: "1.6",
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+    backgroundColor: "#f9fafb",
+  };
+
+  const containerStyle = {
+    flex: 1,
+    maxWidth: "600px",
+    margin: "2rem auto",
+    padding: "1rem",
+    backgroundColor: "white",
+    borderRadius: "1rem",
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+  };
+
+  const footerStyle = {
+    padding: "1rem",
+    textAlign: "center",
+    backgroundColor: "#f3f4f6",
+    fontSize: "0.875rem",
+    color: "#4b5563",
+  };
+
   if (!isLoggedIn) {
     return (
-      <div className="p-4 max-w-md mx-auto">
-        <h1 className="text-xl font-bold mb-4">Admin Innlogging</h1>
-        <form onSubmit={handleLogin} className="space-y-4">
-          <input
-            className="w-full p-2 border"
-            placeholder="Brukernavn"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            className="w-full p-2 border"
-            placeholder="Passord"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button className="bg-blue-600 text-white px-4 py-2 rounded" type="submit">
-            Logg inn
-          </button>
-        </form>
+      <div style={layoutStyle}>
+        <div style={containerStyle}>
+          <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Admin Innlogging</h1>
+          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <input
+              style={{ padding: "0.75rem", border: "1px solid #ccc", borderRadius: "0.5rem" }}
+              placeholder="Brukernavn"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              style={{ padding: "0.75rem", border: "1px solid #ccc", borderRadius: "0.5rem" }}
+              placeholder="Passord"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="submit"
+              style={{
+                backgroundColor: "#2563eb",
+                color: "white",
+                padding: "0.75rem",
+                border: "none",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+              }}
+            >
+              Logg inn
+            </button>
+          </form>
+        </div>
+        <footer style={footerStyle}>
+          © {new Date().getFullYear()} <a href="https://www.dmz.no" style={{ color: "#2563eb", textDecoration: "none" }}>DMZ DATA AS</a>. Alle rettigheter reservert.
+        </footer>
       </div>
     );
   }
 
   return (
-    <main className="p-4 max-w-xl mx-auto">
-      <h1 className="text-xl font-bold mb-4">Rediger Samtalepartneren Liv</h1>
-      <form onSubmit={handleSave} className="space-y-4">
-        <div>
-          <label className="block font-medium">System Prompt</label>
-          <textarea
-            value={systemPrompt}
-            onChange={(e) => setSystemPrompt(e.target.value)}
-            className="w-full p-2 border rounded"
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Starttekst (speak)</label>
-          <textarea
-            value={speakText}
-            onChange={(e) => setSpeakText(e.target.value)}
-            className="w-full p-2 border rounded"
-          />
-        </div>
-        <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
-          Lagre
-        </button>
-      </form>
-    </main>
+    <div style={layoutStyle}>
+      <div style={containerStyle}>
+        <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Rediger Samtalepartneren Liv</h1>
+        <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div>
+            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>System Prompt</label>
+            <textarea
+              value={systemPrompt}
+              onChange={(e) => setSystemPrompt(e.target.value)}
+              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc" }}
+              rows={4}
+            />
+          </div>
+          <div>
+            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>Starttekst (speak)</label>
+            <textarea
+              value={speakText}
+              onChange={(e) => setSpeakText(e.target.value)}
+              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc" }}
+              rows={3}
+            />
+          </div>
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "#059669",
+              color: "white",
+              padding: "0.75rem",
+              border: "none",
+              borderRadius: "0.5rem",
+              cursor: "pointer",
+            }}
+          >
+            Lagre
+          </button>
+        </form>
+      </div>
+      <footer style={footerStyle}>
+        © {new Date().getFullYear()} <a href="https://www.dmz.no" style={{ color: "#2563eb", textDecoration: "none" }}>DMZ DATA AS</a>. Alle rettigheter reservert.
+      </footer>
+    </div>
   );
 }
