@@ -1,5 +1,13 @@
 import { useState, useEffect } from "react";
 
+const VOICE_OPTIONS = [
+  { value: "alloy", label: "Alloy (standard)" },
+  { value: "verse", label: "Verse" },
+  { value: "sage", label: "Sage" },
+  { value: "shimmer", label: "Shimmer" },
+  { value: "coral", label: "Coral" },
+];
+
 export default function Admin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -7,14 +15,26 @@ export default function Admin() {
 
   const [systemPrompt, setSystemPrompt] = useState("");
   const [speakText, setSpeakText] = useState("");
+  const [voice, setVoice] = useState("alloy");
 
   useEffect(() => {
     if (isLoggedIn) {
       fetch("/config.json")
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Kunne ikke hente config.json");
+          }
+          return res.json();
+        })
         .then((data) => {
-          setSystemPrompt(data.system_prompt || "");
+          // Støtt både system_prompt og system_instruction, men skriv tilbake som system_prompt
+          setSystemPrompt(data.system_prompt || data.system_instruction || "");
           setSpeakText(data.speak_text || "");
+          setVoice(data.voice || "alloy");
+        })
+        .catch((err) => {
+          console.error("Feil ved henting av config:", err);
+          alert("Kunne ikke hente config fra serveren (se konsollen for detaljer).");
         });
     }
   }, [isLoggedIn]);
@@ -43,10 +63,19 @@ export default function Admin() {
     const res = await fetch("/api/update-config", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ system_prompt: systemPrompt, speak_text: speakText }),
+      body: JSON.stringify({
+        system_prompt: systemPrompt,
+        speak_text: speakText,
+        voice: voice,
+      }),
     });
-    if (res.ok) alert("Lagret!");
-    else alert("Kunne ikke lagre");
+    if (res.ok) {
+      alert("Lagret!");
+    } else {
+      const err = await res.json().catch(() => ({}));
+      console.error("Feil ved lagring:", err);
+      alert("Kunne ikke lagre");
+    }
   }
 
   const layoutStyle = {
@@ -62,7 +91,7 @@ export default function Admin() {
     flex: 1,
     maxWidth: "600px",
     margin: "2rem auto",
-    padding: "1rem",
+    padding: "1.5rem",
     backgroundColor: "white",
     borderRadius: "1rem",
     boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
@@ -80,17 +109,36 @@ export default function Admin() {
     return (
       <div style={layoutStyle}>
         <div style={containerStyle}>
-          <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Innlogging for å tilpasse boks1 din</h1>
-          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <h1
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+              marginBottom: "1rem",
+            }}
+          >
+            Innlogging for å tilpasse boks1 din
+          </h1>
+          <form
+            onSubmit={handleLogin}
+            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+          >
             <input
-              style={{ padding: "0.75rem", border: "1px solid #ccc", borderRadius: "0.5rem" }}
+              style={{
+                padding: "0.75rem",
+                border: "1px solid #ccc",
+                borderRadius: "0.5rem",
+              }}
               placeholder="Brukernavn"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
             <input
               type="password"
-              style={{ padding: "0.75rem", border: "1px solid #ccc", borderRadius: "0.5rem" }}
+              style={{
+                padding: "0.75rem",
+                border: "1px solid #ccc",
+                borderRadius: "0.5rem",
+              }}
               placeholder="Passord"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -111,7 +159,14 @@ export default function Admin() {
           </form>
         </div>
         <footer style={footerStyle}>
-          © {new Date().getFullYear()} <a href="https://www.dmz.no" style={{ color: "#2563eb", textDecoration: "none" }}>DMZ DATA AS</a>. Alle rettigheter reservert.
+          © {new Date().getFullYear()}{" "}
+          <a
+            href="https://www.dmz.no"
+            style={{ color: "#2563eb", textDecoration: "none" }}
+          >
+            DMZ DATA AS
+          </a>
+          . Alle rettigheter reservert.
         </footer>
       </div>
     );
@@ -120,26 +175,107 @@ export default function Admin() {
   return (
     <div style={layoutStyle}>
       <div style={containerStyle}>
-        <h1 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}>Tilpass samtalepartneren</h1>
-        <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <h1
+          style={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            marginBottom: "1rem",
+          }}
+        >
+          Tilpass samtalepartneren
+        </h1>
+
+        <form
+          onSubmit={handleSave}
+          style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+        >
           <div>
-            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>Hvem er boksen, hvordan skal den svare?(system prompt)</label>
+            <label
+              style={{
+                display: "block",
+                fontWeight: "600",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Hvem er boksen, hvordan skal den svare? (system prompt)
+            </label>
+            <p style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 0 }}>
+              Dette er “personligheten” til boks1. Den vises aldri til brukeren,
+              men styrer hvordan den snakker, hva den prioriterer osv.
+            </p>
             <textarea
               value={systemPrompt}
               onChange={(e) => setSystemPrompt(e.target.value)}
-              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc" }}
+              style={{
+                width: "100%",
+                padding: "0.75rem",
+                borderRadius: "0.5rem",
+                border: "1px solid #ccc",
+              }}
               rows={4}
             />
           </div>
+
           <div>
-            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>Oppstarts setning (speak_text)</label>
+            <label
+              style={{
+                display: "block",
+                fontWeight: "600",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Oppstarts-setning (speak_text)
+            </label>
+            <p style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 0 }}>
+              Dette er det første den sier høyt når den starter eller restarter
+              – en hyggelig liten intro til samtalen.
+            </p>
             <textarea
               value={speakText}
               onChange={(e) => setSpeakText(e.target.value)}
-              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc" }}
+              style={{
+                width: "100%",
+                padding: "0.75rem",
+                borderRadius: "0.5rem",
+                border: "1px solid #ccc",
+              }}
               rows={3}
             />
           </div>
+
+          <div>
+            <label
+              style={{
+                display: "block",
+                fontWeight: "600",
+                marginBottom: "0.5rem",
+              }}
+            >
+              Stemmetype
+            </label>
+            <p style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 0 }}>
+              Velg hvilken stemme boks1 skal bruke når den snakker. Endring
+              trer i kraft neste gang boksen starter.
+            </p>
+            <select
+              value={voice}
+              onChange={(e) => setVoice(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "0.75rem",
+                borderRadius: "0.5rem",
+                border: "1px solid #ccc",
+                backgroundColor: "white",
+              }}
+            >
+              {VOICE_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label} ({opt.value})
+                </option>
+              ))}
+            </select>
+          </div>
+
           <button
             type="submit"
             style={{
@@ -156,7 +292,14 @@ export default function Admin() {
         </form>
       </div>
       <footer style={footerStyle}>
-        © {new Date().getFullYear()} <a href="https://www.dmz.no" style={{ color: "#2563eb", textDecoration: "none" }}>DMZ DATA AS</a>. Alle rettigheter reservert.
+        © {new Date().getFullYear()}{" "}
+        <a
+          href="https://www.dmz.no"
+          style={{ color: "#2563eb", textDecoration: "none" }}
+        >
+          DMZ DATA AS
+        </a>
+        . Alle rettigheter reservert.
       </footer>
     </div>
   );
