@@ -1,11 +1,28 @@
 import { useState, useEffect } from "react";
 
 const VOICE_OPTIONS = [
-  { value: "alloy", label: "Alloy (standard)" },
-  { value: "verse", label: "Verse" },
-  { value: "sage", label: "Sage" },
-  { value: "shimmer", label: "Shimmer" },
-  { value: "coral", label: "Coral" },
+  {
+    value: "alloy",
+    label: "Alloy – Rolig voksen kvinne, naturlig og vennlig stemme (standard)",
+  },
+  {
+    value: "verse",
+    label: "Verse – Myk og profesjonell voksen mann, litt radiostemme",
+  },
+  {
+    value: "sage",
+    label: "Sage – Varme og jordnære vibber, litt eldre mann/kvinne",
+  },
+  {
+    value: "shimmer",
+    label:
+      "Shimmer – Lys og energisk ung voksen/tenåring, rask og entusiastisk",
+  },
+  {
+    value: "coral",
+    label:
+      "Coral – Ung, varm og smilende stemme – passer til mer lekne samtaler",
+  },
 ];
 
 export default function Admin() {
