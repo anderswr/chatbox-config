@@ -1,0 +1,1498 @@
+[2025-12-17 15:44:06] [LOG] Logger til: /home/piadmin/chatbox/logs/chatbox_2025-12-17_15-44-06.log
+[2025-12-17 15:44:06] [KONFIG] Henter config fra https://chatbox-config-fruliv.vercel.app/config.json ...
+[2025-12-17 15:44:06] [KONFIG] Feil ved henting av konfig: HTTPSConnectionPool(host='chatbox-config-fruliv.vercel.app', port=443): Max retries exceeded with url: /config.json (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate is not yet valid (_ssl.c:992)')))
+[2025-12-17 15:44:06] [INIT] system_instruction: Du heter Liv, og er en hjelpsom og morsom norsk samtalepartner. Du kan stille hyggelige oppfølgingsspørsmål for å holde samtalen i gang. Innimellom tar du med noen relevante funfacts i samtalen.
+[2025-12-17 15:44:06] [INIT] voice: alloy
+[2025-12-17 15:44:06] [INIT] speak_text: Hei! Jeg fikk ikke kontakt med administrasjonssiden på nettet, så jeg bruker et lokalt standardoppsett akkurat nå. Det betyr at jeg kanskje ikke har helt oppdatert informasjon eller personlighet, men jeg skal gjøre så godt jeg kan.
+[2025-12-17 15:44:06] [INIT] config_ok: False
+[2025-12-17 15:44:06] [AUDIO] Tilgjengelige enheter fra sounddevice:
+[2025-12-17 15:44:06] [AUDIO] Fant ikke Jabra-enhet. Bruker system-default (None) for inn/ut.
+[2025-12-17 15:44:06] [AUDIO] INPUT_DEVICE=None, OUTPUT_DEVICE=None
+[2025-12-17 15:44:06] [AUDIO] DEVICE_SAMPLE_RATE=16000, INPUT_API_SAMPLE_RATE=24000, OUTPUT_API_SAMPLE_RATE=8000
+[2025-12-17 15:44:06] [AUDIO] VAD: MIN_SECONDS=1.2, SILENCE_DURATION=0.55, SILENCE_THRESHOLD=120.0, SPEECH_MIN_RMS=150.0
+[2025-12-17 15:44:06] [MAIN] Starter Realtime (forsøk #1) ...
+[2025-12-17 15:44:06] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2025-12-17 15:44:06] [MAIN] Realtime falt ut: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate is not yet valid (_ssl.c:992)
+[2025-12-17 15:44:06] [MAIN] Reconnect om 4.0s ...
+[2025-12-17 15:44:10] [MAIN] Starter Realtime (forsøk #2) ...
+[2025-12-17 15:44:10] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2025-12-17 15:44:10] [MAIN] Realtime falt ut: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate is not yet valid (_ssl.c:992)
+[2025-12-17 15:44:10] [MAIN] Reconnect om 4.6s ...
+[2025-12-17 15:44:14] [MAIN] Starter Realtime (forsøk #3) ...
+[2025-12-17 15:44:14] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2025-12-17 15:44:15] [MAIN] Realtime falt ut: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate is not yet valid (_ssl.c:992)
+[2025-12-17 15:44:15] [MAIN] Reconnect om 5.6s ...
+[2025-12-17 15:44:20] [MAIN] Starter Realtime (forsøk #4) ...
+[2025-12-17 15:44:20] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:18:22] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:18:22] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:18:22] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:18:24] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:18:24] [MAIN] Reconnect om 6.4s ...
+[2026-08-31 18:18:30] [MAIN] Starter Realtime (forsøk #5) ...
+[2026-08-31 18:18:30] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:18:32] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:18:32] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:18:32] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:18:32] [WS→] session.update sendt
+[2026-08-31 18:18:32] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:18:32] [WS→] response.create (greeting)
+[2026-08-31 18:18:32] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz0JTesaYz7BirNMKHlt",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:18:34] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:18:34] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:18:34] [MAIN] Reconnect om 7.3s ...
+[2026-08-31 18:18:41] [MAIN] Starter Realtime (forsøk #6) ...
+[2026-08-31 18:18:41] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:18:42] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:18:42] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:18:42] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:18:44] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:18:44] [MAIN] Reconnect om 8.2s ...
+[2026-08-31 18:18:52] [MAIN] Starter Realtime (forsøk #7) ...
+[2026-08-31 18:18:52] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:18:53] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:18:53] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:18:53] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:18:53] [WS→] session.update sendt
+[2026-08-31 18:18:53] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:18:53] [WS→] response.create (greeting)
+[2026-08-31 18:18:53] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz0f7vWpL43OzQ1wWd7s",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:18:55] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:18:55] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:18:55] [MAIN] Reconnect om 9.3s ...
+[2026-08-31 18:19:05] [MAIN] Starter Realtime (forsøk #8) ...
+[2026-08-31 18:19:05] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:19:06] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:19:06] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:19:06] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:19:06] [WS→] session.update sendt
+[2026-08-31 18:19:06] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:19:06] [WS→] response.create (greeting)
+[2026-08-31 18:19:06] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz0rBqKzkUXandvFTsy3",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:19:08] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:19:08] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:19:08] [MAIN] Reconnect om 10.5s ...
+[2026-08-31 18:19:18] [MAIN] Starter Realtime (forsøk #9) ...
+[2026-08-31 18:19:18] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:19:19] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:19:19] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:19:19] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:19:19] [WS→] session.update sendt
+[2026-08-31 18:19:19] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:19:19] [WS→] response.create (greeting)
+[2026-08-31 18:19:19] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz15qnz9m6C4IIZaPdXS",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:19:21] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:19:21] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:19:21] [MAIN] Reconnect om 11.5s ...
+[2026-08-31 18:19:33] [MAIN] Starter Realtime (forsøk #10) ...
+[2026-08-31 18:19:33] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:19:33] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:19:33] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:19:33] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:19:36] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:19:36] [MAIN] Reconnect om 12.4s ...
+[2026-08-31 18:19:48] [MAIN] Starter Realtime (forsøk #11) ...
+[2026-08-31 18:19:48] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:19:49] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:19:49] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:19:49] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:19:51] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:19:51] [MAIN] Reconnect om 13.3s ...
+[2026-08-31 18:20:04] [MAIN] Starter Realtime (forsøk #12) ...
+[2026-08-31 18:20:04] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:20:05] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:20:05] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:20:05] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:20:07] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:20:07] [MAIN] Reconnect om 14.4s ...
+[2026-08-31 18:20:22] [MAIN] Starter Realtime (forsøk #13) ...
+[2026-08-31 18:20:22] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:20:23] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:20:23] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:20:23] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:20:25] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:20:25] [MAIN] Reconnect om 15.8s ...
+[2026-08-31 18:20:41] [MAIN] Starter Realtime (forsøk #14) ...
+[2026-08-31 18:20:41] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:20:42] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:20:42] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:20:42] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:20:44] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:20:44] [MAIN] Reconnect om 16.1s ...
+[2026-08-31 18:21:00] [MAIN] Starter Realtime (forsøk #15) ...
+[2026-08-31 18:21:00] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:21:01] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:21:01] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:21:01] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:21:01] [WS→] session.update sendt
+[2026-08-31 18:21:01] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:21:01] [WS→] response.create (greeting)
+[2026-08-31 18:21:01] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz2jLRKBOBGmbHGddyoQ",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:21:03] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:21:03] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:21:03] [MAIN] Reconnect om 17.2s ...
+[2026-08-31 18:21:20] [MAIN] Starter Realtime (forsøk #16) ...
+[2026-08-31 18:21:20] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:21:21] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:21:21] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:21:21] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:21:23] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:21:23] [MAIN] Reconnect om 18.3s ...
+[2026-08-31 18:21:42] [MAIN] Starter Realtime (forsøk #17) ...
+[2026-08-31 18:21:42] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:21:42] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:21:42] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:21:42] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:21:45] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:21:45] [MAIN] Reconnect om 19.7s ...
+[2026-08-31 18:22:04] [MAIN] Starter Realtime (forsøk #18) ...
+[2026-08-31 18:22:04] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:22:05] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:22:05] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:22:05] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:22:05] [WS→] session.update sendt
+[2026-08-31 18:22:05] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:22:05] [WS→] response.create (greeting)
+[2026-08-31 18:22:05] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz3l3q5AYZrqnCH2VNUz",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:22:07] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:22:07] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:22:07] [MAIN] Reconnect om 21.0s ...
+[2026-08-31 18:22:28] [MAIN] Starter Realtime (forsøk #19) ...
+[2026-08-31 18:22:28] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:22:29] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:22:29] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:22:29] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:22:29] [WS→] session.update sendt
+[2026-08-31 18:22:29] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:22:29] [WS→] response.create (greeting)
+[2026-08-31 18:22:29] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz49bWmgbLnVv7krjhD4",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:22:31] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:22:31] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:22:31] [MAIN] Reconnect om 21.8s ...
+[2026-08-31 18:22:53] [MAIN] Starter Realtime (forsøk #20) ...
+[2026-08-31 18:22:53] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:22:54] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:22:54] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:22:54] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:22:56] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:22:56] [MAIN] Reconnect om 22.3s ...
+[2026-08-31 18:23:18] [MAIN] Starter Realtime (forsøk #21) ...
+[2026-08-31 18:23:18] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:23:19] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:23:19] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:23:19] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:23:19] [WS→] session.update sendt
+[2026-08-31 18:23:19] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:23:19] [WS→] response.create (greeting)
+[2026-08-31 18:23:19] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz4xExuAIyQDb5M0iB1Z",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:23:21] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:23:21] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:23:21] [MAIN] Reconnect om 23.5s ...
+[2026-08-31 18:23:45] [MAIN] Starter Realtime (forsøk #22) ...
+[2026-08-31 18:23:45] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:23:46] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:23:46] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:23:46] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:23:48] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:23:48] [MAIN] Reconnect om 24.5s ...
+[2026-08-31 18:24:12] [MAIN] Starter Realtime (forsøk #23) ...
+[2026-08-31 18:24:12] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:24:13] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:24:13] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:24:13] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:24:15] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:24:15] [MAIN] Reconnect om 25.9s ...
+[2026-08-31 18:24:41] [MAIN] Starter Realtime (forsøk #24) ...
+[2026-08-31 18:24:41] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:24:42] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:24:42] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:24:42] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:24:42] [WS→] session.update sendt
+[2026-08-31 18:24:42] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:24:42] [WS→] response.create (greeting)
+[2026-08-31 18:24:42] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz6IvtmKhgLa3CTudX0M",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:24:44] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:24:44] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:24:44] [MAIN] Reconnect om 26.8s ...
+[2026-08-31 18:25:11] [MAIN] Starter Realtime (forsøk #25) ...
+[2026-08-31 18:25:11] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:25:12] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:25:12] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:25:12] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:25:14] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:25:14] [MAIN] Reconnect om 27.6s ...
+[2026-08-31 18:25:41] [MAIN] Starter Realtime (forsøk #26) ...
+[2026-08-31 18:25:41] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:25:42] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:25:42] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:25:42] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:25:42] [WS→] session.update sendt
+[2026-08-31 18:25:42] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:25:42] [WS→] response.create (greeting)
+[2026-08-31 18:25:42] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz7GwO3xWQVc8PEveM5B",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:25:44] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:25:44] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:25:44] [MAIN] Reconnect om 28.6s ...
+[2026-08-31 18:26:13] [MAIN] Starter Realtime (forsøk #27) ...
+[2026-08-31 18:26:13] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:26:14] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:26:14] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:26:14] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:26:14] [WS→] session.update sendt
+[2026-08-31 18:26:14] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:26:14] [WS→] response.create (greeting)
+[2026-08-31 18:26:14] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz7mUlwxKHgoCfIHo3GZ",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:26:16] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:26:16] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:26:16] [MAIN] Reconnect om 29.6s ...
+[2026-08-31 18:26:46] [MAIN] Starter Realtime (forsøk #28) ...
+[2026-08-31 18:26:46] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:26:46] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:26:46] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:26:46] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:26:48] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:26:48] [MAIN] Reconnect om 30.9s ...
+[2026-08-31 18:27:19] [MAIN] Starter Realtime (forsøk #29) ...
+[2026-08-31 18:27:19] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:27:20] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:27:20] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:27:20] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:27:20] [WS→] session.update sendt
+[2026-08-31 18:27:20] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:27:20] [WS→] response.create (greeting)
+[2026-08-31 18:27:20] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIz8qGPLwFIlBpfqMv0nK",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:27:22] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:27:22] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:27:22] [MAIN] Reconnect om 30.8s ...
+[2026-08-31 18:27:53] [MAIN] Starter Realtime (forsøk #30) ...
+[2026-08-31 18:27:53] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:27:54] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:27:54] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:27:54] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:27:56] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:27:56] [MAIN] Reconnect om 30.1s ...
+[2026-08-31 18:28:26] [MAIN] Starter Realtime (forsøk #31) ...
+[2026-08-31 18:28:26] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:28:27] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:28:27] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:28:27] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:28:29] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:28:29] [MAIN] Reconnect om 31.0s ...
+[2026-08-31 18:29:00] [MAIN] Starter Realtime (forsøk #32) ...
+[2026-08-31 18:29:00] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:29:01] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:29:01] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:29:01] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:29:01] [WS→] session.update sendt
+[2026-08-31 18:29:01] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:29:01] [WS→] response.create (greeting)
+[2026-08-31 18:29:01] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzATG1bl2SCnxNgjjnGh",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:29:03] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:29:03] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:29:03] [MAIN] Reconnect om 30.9s ...
+[2026-08-31 18:29:34] [MAIN] Starter Realtime (forsøk #33) ...
+[2026-08-31 18:29:34] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:29:35] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:29:35] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:29:35] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:29:35] [WS→] session.update sendt
+[2026-08-31 18:29:35] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:29:35] [WS→] response.create (greeting)
+[2026-08-31 18:29:35] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzB0rFOEtKliicFUNEbi",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:29:37] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:29:37] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:29:37] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 18:30:07] [MAIN] Starter Realtime (forsøk #34) ...
+[2026-08-31 18:30:07] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:30:08] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:30:08] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:30:08] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:30:08] [WS→] session.update sendt
+[2026-08-31 18:30:08] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:30:08] [WS→] response.create (greeting)
+[2026-08-31 18:30:08] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzBYs3CYPgK70pZbfKVv",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:30:10] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:30:10] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:30:10] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 18:30:40] [MAIN] Starter Realtime (forsøk #35) ...
+[2026-08-31 18:30:40] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:30:41] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:30:41] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:30:41] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:30:43] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:30:43] [MAIN] Reconnect om 30.6s ...
+[2026-08-31 18:31:14] [MAIN] Starter Realtime (forsøk #36) ...
+[2026-08-31 18:31:14] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:31:15] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:31:15] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:31:15] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:31:17] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:31:17] [MAIN] Reconnect om 30.4s ...
+[2026-08-31 18:31:47] [MAIN] Starter Realtime (forsøk #37) ...
+[2026-08-31 18:31:47] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:31:48] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:31:48] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:31:48] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:31:48] [WS→] session.update sendt
+[2026-08-31 18:31:48] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:31:48] [WS→] response.create (greeting)
+[2026-08-31 18:31:48] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzDALT52Rxyrl71MwX1g",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:31:50] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:31:50] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:31:50] [MAIN] Reconnect om 30.9s ...
+[2026-08-31 18:32:21] [MAIN] Starter Realtime (forsøk #38) ...
+[2026-08-31 18:32:21] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:32:22] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:32:22] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:32:22] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:32:24] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:32:24] [MAIN] Reconnect om 30.1s ...
+[2026-08-31 18:32:54] [MAIN] Starter Realtime (forsøk #39) ...
+[2026-08-31 18:32:54] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:32:55] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:32:55] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:32:55] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:32:57] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:32:57] [MAIN] Reconnect om 30.6s ...
+[2026-08-31 18:33:28] [MAIN] Starter Realtime (forsøk #40) ...
+[2026-08-31 18:33:28] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:33:28] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:33:28] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:33:28] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:33:31] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:33:31] [MAIN] Reconnect om 30.2s ...
+[2026-08-31 18:34:01] [MAIN] Starter Realtime (forsøk #41) ...
+[2026-08-31 18:34:01] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:34:02] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:34:02] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:34:02] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:34:04] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:34:04] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 18:34:34] [MAIN] Starter Realtime (forsøk #42) ...
+[2026-08-31 18:34:34] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:34:35] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:34:35] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:34:35] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:34:37] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:34:37] [MAIN] Reconnect om 30.9s ...
+[2026-08-31 18:35:08] [MAIN] Starter Realtime (forsøk #43) ...
+[2026-08-31 18:35:08] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:35:09] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:35:09] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:35:09] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:35:11] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:35:11] [MAIN] Reconnect om 31.0s ...
+[2026-08-31 18:35:42] [MAIN] Starter Realtime (forsøk #44) ...
+[2026-08-31 18:35:42] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:35:43] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:35:43] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:35:43] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:35:45] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:35:45] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 18:36:15] [MAIN] Starter Realtime (forsøk #45) ...
+[2026-08-31 18:36:15] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:36:16] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:36:16] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:36:16] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:36:16] [WS→] session.update sendt
+[2026-08-31 18:36:16] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:36:16] [WS→] response.create (greeting)
+[2026-08-31 18:36:16] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzHU1kLe1nSFh1ruZWF6",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:36:18] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:36:18] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:36:18] [MAIN] Reconnect om 30.8s ...
+[2026-08-31 18:36:49] [MAIN] Starter Realtime (forsøk #46) ...
+[2026-08-31 18:36:49] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:36:50] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:36:50] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:36:50] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:36:50] [WS→] session.update sendt
+[2026-08-31 18:36:50] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:36:50] [WS→] response.create (greeting)
+[2026-08-31 18:36:50] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzI2bRL7RzaUNoRg2cuG",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:36:52] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:36:52] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:36:52] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 18:37:22] [MAIN] Starter Realtime (forsøk #47) ...
+[2026-08-31 18:37:22] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:37:23] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:37:23] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:37:23] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:37:23] [WS→] session.update sendt
+[2026-08-31 18:37:23] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:37:23] [WS→] response.create (greeting)
+[2026-08-31 18:37:23] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzIZQrN9TpLYbmuyeUH8",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:37:26] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:37:26] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:37:26] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 18:37:56] [MAIN] Starter Realtime (forsøk #48) ...
+[2026-08-31 18:37:56] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:37:57] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:37:57] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:37:57] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:37:59] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:37:59] [MAIN] Reconnect om 30.8s ...
+[2026-08-31 18:38:30] [MAIN] Starter Realtime (forsøk #49) ...
+[2026-08-31 18:38:30] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:38:31] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:38:31] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:38:31] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:38:31] [WS→] session.update sendt
+[2026-08-31 18:38:31] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:38:31] [WS→] response.create (greeting)
+[2026-08-31 18:38:31] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzJeVBATIKHxWJHEIcQK",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:38:33] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:38:33] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:38:33] [MAIN] Reconnect om 30.4s ...
+[2026-08-31 18:39:03] [MAIN] Starter Realtime (forsøk #50) ...
+[2026-08-31 18:39:03] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:39:04] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:39:04] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:39:04] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:39:04] [WS→] session.update sendt
+[2026-08-31 18:39:04] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:39:04] [WS→] response.create (greeting)
+[2026-08-31 18:39:04] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzKCci4kOQgkqgQlRNYx",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:39:06] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:39:06] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:39:06] [MAIN] Reconnect om 30.2s ...
+[2026-08-31 18:39:36] [MAIN] Starter Realtime (forsøk #51) ...
+[2026-08-31 18:39:36] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:39:37] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:39:37] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:39:37] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:39:37] [WS→] session.update sendt
+[2026-08-31 18:39:37] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:39:37] [WS→] response.create (greeting)
+[2026-08-31 18:39:37] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzKj6cWqrXH6l09UAtFJ",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:39:39] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:39:39] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:39:39] [MAIN] Reconnect om 30.9s ...
+[2026-08-31 18:40:10] [MAIN] Starter Realtime (forsøk #52) ...
+[2026-08-31 18:40:10] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:40:11] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:40:11] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:40:11] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:40:13] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:40:13] [MAIN] Reconnect om 30.4s ...
+[2026-08-31 18:40:43] [MAIN] Starter Realtime (forsøk #53) ...
+[2026-08-31 18:40:43] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:40:44] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:40:44] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:40:44] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:40:44] [WS→] session.update sendt
+[2026-08-31 18:40:44] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:40:44] [WS→] response.create (greeting)
+[2026-08-31 18:40:44] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzLobwv3hkx5uvagC2CZ",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:40:46] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:40:46] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:40:46] [MAIN] Reconnect om 30.8s ...
+[2026-08-31 18:41:17] [MAIN] Starter Realtime (forsøk #54) ...
+[2026-08-31 18:41:17] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:41:18] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:41:18] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:41:18] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:41:18] [WS→] session.update sendt
+[2026-08-31 18:41:18] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:41:18] [WS→] response.create (greeting)
+[2026-08-31 18:41:18] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzMMhGwuv1S3ESN4yXug",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:41:20] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:41:20] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:41:20] [MAIN] Reconnect om 30.1s ...
+[2026-08-31 18:41:50] [MAIN] Starter Realtime (forsøk #55) ...
+[2026-08-31 18:41:50] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:41:51] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:41:51] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:41:51] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:41:51] [WS→] session.update sendt
+[2026-08-31 18:41:51] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:41:51] [WS→] response.create (greeting)
+[2026-08-31 18:41:51] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzMtb0UAM9MeH0BUM76u",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:41:53] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:41:53] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:41:53] [MAIN] Reconnect om 30.9s ...
+[2026-08-31 18:42:24] [MAIN] Starter Realtime (forsøk #56) ...
+[2026-08-31 18:42:24] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:42:25] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:42:25] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:42:25] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:42:27] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:42:27] [MAIN] Reconnect om 30.8s ...
+[2026-08-31 18:42:58] [MAIN] Starter Realtime (forsøk #57) ...
+[2026-08-31 18:42:58] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:42:59] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:42:59] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:42:59] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:43:01] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:43:01] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 18:43:31] [MAIN] Starter Realtime (forsøk #58) ...
+[2026-08-31 18:43:31] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:43:32] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:43:32] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:43:32] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:43:32] [WS→] session.update sendt
+[2026-08-31 18:43:32] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:43:32] [WS→] response.create (greeting)
+[2026-08-31 18:43:32] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzOWUAT32fByv2olzGiv",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:43:34] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:43:34] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:43:34] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 18:44:05] [MAIN] Starter Realtime (forsøk #59) ...
+[2026-08-31 18:44:05] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:44:06] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:44:06] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:44:06] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:44:08] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:44:08] [MAIN] Reconnect om 30.7s ...
+[2026-08-31 18:44:39] [MAIN] Starter Realtime (forsøk #60) ...
+[2026-08-31 18:44:39] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:44:39] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:44:39] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:44:39] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:44:39] [WS→] session.update sendt
+[2026-08-31 18:44:39] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:44:39] [WS→] response.create (greeting)
+[2026-08-31 18:44:39] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzPbHRsHhy1EAlCU5X7c",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:44:42] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:44:42] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:44:42] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 18:45:12] [MAIN] Starter Realtime (forsøk #61) ...
+[2026-08-31 18:45:12] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:45:13] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:45:13] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:45:13] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:45:13] [WS→] session.update sendt
+[2026-08-31 18:45:13] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:45:13] [WS→] response.create (greeting)
+[2026-08-31 18:45:13] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzQ8Q70QLJSUHVc2a2lM",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:45:15] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:45:15] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:45:15] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 18:45:45] [MAIN] Starter Realtime (forsøk #62) ...
+[2026-08-31 18:45:45] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:45:46] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:45:46] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:45:46] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:45:46] [WS→] session.update sendt
+[2026-08-31 18:45:46] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:45:46] [WS→] response.create (greeting)
+[2026-08-31 18:45:46] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzQgRBJgecHpz35vJGa6",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:45:48] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:45:48] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:45:48] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 18:46:18] [MAIN] Starter Realtime (forsøk #63) ...
+[2026-08-31 18:46:18] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:46:19] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:46:19] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:46:19] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:46:19] [WS→] session.update sendt
+[2026-08-31 18:46:19] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:46:19] [WS→] response.create (greeting)
+[2026-08-31 18:46:19] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzRDBSHJsXMdTQMIdG37",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:46:21] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:46:21] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:46:21] [MAIN] Reconnect om 30.7s ...
+[2026-08-31 18:46:52] [MAIN] Starter Realtime (forsøk #64) ...
+[2026-08-31 18:46:52] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:46:53] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:46:53] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:46:53] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:46:53] [WS→] session.update sendt
+[2026-08-31 18:46:53] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:46:53] [WS→] response.create (greeting)
+[2026-08-31 18:46:53] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzRk4VLm5TsexumCJtqt",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:46:55] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:46:55] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:46:55] [MAIN] Reconnect om 30.0s ...
+[2026-08-31 18:47:25] [MAIN] Starter Realtime (forsøk #65) ...
+[2026-08-31 18:47:25] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:47:25] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:47:25] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:47:25] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:47:28] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:47:28] [MAIN] Reconnect om 30.0s ...
+[2026-08-31 18:47:58] [MAIN] Starter Realtime (forsøk #66) ...
+[2026-08-31 18:47:58] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:47:58] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:47:58] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:47:58] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:47:58] [WS→] session.update sendt
+[2026-08-31 18:47:58] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:47:58] [WS→] response.create (greeting)
+[2026-08-31 18:47:58] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzSoukp5izfehjSmOGpy",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:48:01] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:48:01] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:48:01] [MAIN] Reconnect om 30.4s ...
+[2026-08-31 18:48:31] [MAIN] Starter Realtime (forsøk #67) ...
+[2026-08-31 18:48:31] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:48:32] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:48:32] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:48:32] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:48:32] [WS→] session.update sendt
+[2026-08-31 18:48:32] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:48:32] [WS→] response.create (greeting)
+[2026-08-31 18:48:32] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzTM2W9H96udA78O5tmI",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:48:34] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:48:34] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:48:34] [MAIN] Reconnect om 30.7s ...
+[2026-08-31 18:49:05] [MAIN] Starter Realtime (forsøk #68) ...
+[2026-08-31 18:49:05] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:49:05] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:49:05] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:49:05] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:49:05] [WS→] session.update sendt
+[2026-08-31 18:49:05] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:49:05] [WS→] response.create (greeting)
+[2026-08-31 18:49:05] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzTtlcgnU7nsT5KLN7iB",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:49:07] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:49:07] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:49:07] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 18:49:38] [MAIN] Starter Realtime (forsøk #69) ...
+[2026-08-31 18:49:38] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:49:39] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:49:39] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:49:39] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:49:39] [WS→] session.update sendt
+[2026-08-31 18:49:39] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:49:39] [WS→] response.create (greeting)
+[2026-08-31 18:49:39] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzUQu58moMNHdGP7iuP4",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:49:41] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:49:41] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:49:41] [MAIN] Reconnect om 30.8s ...
+[2026-08-31 18:50:12] [MAIN] Starter Realtime (forsøk #70) ...
+[2026-08-31 18:50:12] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:50:12] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:50:12] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:50:12] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:50:12] [WS→] session.update sendt
+[2026-08-31 18:50:12] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:50:12] [WS→] response.create (greeting)
+[2026-08-31 18:50:12] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzUy29IN0Y20rH6Boplx",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:50:14] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:50:14] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:50:14] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 18:50:45] [MAIN] Starter Realtime (forsøk #71) ...
+[2026-08-31 18:50:45] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:50:46] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:50:46] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:50:46] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:50:46] [WS→] session.update sendt
+[2026-08-31 18:50:46] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:50:46] [WS→] response.create (greeting)
+[2026-08-31 18:50:46] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzVWtKTkZNbHQfh5HlrG",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:50:48] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:50:48] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:50:48] [MAIN] Reconnect om 30.7s ...
+[2026-08-31 18:51:19] [MAIN] Starter Realtime (forsøk #72) ...
+[2026-08-31 18:51:19] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:51:19] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:51:19] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:51:19] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:51:19] [WS→] session.update sendt
+[2026-08-31 18:51:19] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:51:19] [WS→] response.create (greeting)
+[2026-08-31 18:51:19] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzW39n2llRhikWKVd6XK",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:51:22] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:51:22] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:51:22] [MAIN] Reconnect om 30.0s ...
+[2026-08-31 18:51:52] [MAIN] Starter Realtime (forsøk #73) ...
+[2026-08-31 18:51:52] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:51:53] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:51:53] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:51:53] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:51:53] [WS→] session.update sendt
+[2026-08-31 18:51:53] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:51:53] [WS→] response.create (greeting)
+[2026-08-31 18:51:53] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzWbUtANX043X9w2mjvn",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:51:55] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:51:55] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:51:55] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 18:52:25] [MAIN] Starter Realtime (forsøk #74) ...
+[2026-08-31 18:52:25] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:52:26] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:52:26] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:52:26] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:52:26] [WS→] session.update sendt
+[2026-08-31 18:52:26] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:52:26] [WS→] response.create (greeting)
+[2026-08-31 18:52:26] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzX8l6KOLTVVcyVBEERI",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:52:28] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:52:28] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:52:28] [MAIN] Reconnect om 30.6s ...
+[2026-08-31 18:52:59] [MAIN] Starter Realtime (forsøk #75) ...
+[2026-08-31 18:52:59] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:53:00] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:53:00] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:53:00] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:53:02] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:53:02] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 18:53:32] [MAIN] Starter Realtime (forsøk #76) ...
+[2026-08-31 18:53:32] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:53:33] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:53:33] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:53:33] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:53:35] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:53:35] [MAIN] Reconnect om 30.1s ...
+[2026-08-31 18:54:05] [MAIN] Starter Realtime (forsøk #77) ...
+[2026-08-31 18:54:05] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:54:06] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:54:06] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:54:06] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:54:08] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:54:08] [MAIN] Reconnect om 30.9s ...
+[2026-08-31 18:54:39] [MAIN] Starter Realtime (forsøk #78) ...
+[2026-08-31 18:54:39] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:54:40] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:54:40] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:54:40] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:54:40] [WS→] session.update sendt
+[2026-08-31 18:54:40] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:54:40] [WS→] response.create (greeting)
+[2026-08-31 18:54:40] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzZIe4dGEHDceneIKQvy",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:54:42] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:54:42] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:54:42] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 18:55:12] [MAIN] Starter Realtime (forsøk #79) ...
+[2026-08-31 18:55:12] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:55:13] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:55:13] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:55:13] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:55:13] [WS→] session.update sendt
+[2026-08-31 18:55:13] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:55:13] [WS→] response.create (greeting)
+[2026-08-31 18:55:13] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzZpiDakOKjcLCv5WFoB",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:55:15] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:55:15] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:55:15] [MAIN] Reconnect om 30.1s ...
+[2026-08-31 18:55:46] [MAIN] Starter Realtime (forsøk #80) ...
+[2026-08-31 18:55:46] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:55:46] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:55:46] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:55:46] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:55:48] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:55:48] [MAIN] Reconnect om 30.4s ...
+[2026-08-31 18:56:19] [MAIN] Starter Realtime (forsøk #81) ...
+[2026-08-31 18:56:19] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:56:19] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:56:19] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:56:19] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:56:19] [WS→] session.update sendt
+[2026-08-31 18:56:19] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:56:19] [WS→] response.create (greeting)
+[2026-08-31 18:56:19] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzat2Q7kxhkS8SvdnbKF",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:56:22] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:56:22] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:56:22] [MAIN] Reconnect om 30.9s ...
+[2026-08-31 18:56:53] [MAIN] Starter Realtime (forsøk #82) ...
+[2026-08-31 18:56:53] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:56:53] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:56:53] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:56:53] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:56:56] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:56:56] [MAIN] Reconnect om 30.6s ...
+[2026-08-31 18:57:26] [MAIN] Starter Realtime (forsøk #83) ...
+[2026-08-31 18:57:26] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:57:27] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:57:27] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:57:27] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:57:29] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:57:29] [MAIN] Reconnect om 30.2s ...
+[2026-08-31 18:57:59] [MAIN] Starter Realtime (forsøk #84) ...
+[2026-08-31 18:57:59] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:58:00] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:58:00] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:58:00] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:58:00] [WS→] session.update sendt
+[2026-08-31 18:58:00] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:58:00] [WS→] response.create (greeting)
+[2026-08-31 18:58:00] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzcWcDzpcaIy1C3QOKkZ",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:58:02] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:58:02] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:58:02] [MAIN] Reconnect om 30.8s ...
+[2026-08-31 18:58:33] [MAIN] Starter Realtime (forsøk #85) ...
+[2026-08-31 18:58:33] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:58:34] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:58:34] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:58:34] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:58:36] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:58:36] [MAIN] Reconnect om 30.7s ...
+[2026-08-31 18:59:07] [MAIN] Starter Realtime (forsøk #86) ...
+[2026-08-31 18:59:07] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:59:08] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:59:08] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:59:08] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:59:08] [WS→] session.update sendt
+[2026-08-31 18:59:08] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:59:08] [WS→] response.create (greeting)
+[2026-08-31 18:59:08] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzdcKcen8CUCJtp6dwGS",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:59:10] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:59:10] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:59:10] [MAIN] Reconnect om 30.0s ...
+[2026-08-31 18:59:40] [MAIN] Starter Realtime (forsøk #87) ...
+[2026-08-31 18:59:40] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 18:59:41] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 18:59:41] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 18:59:41] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 18:59:41] [WS→] session.update sendt
+[2026-08-31 18:59:41] [WS→] conversation.item.create (greeting)
+[2026-08-31 18:59:41] [WS→] response.create (greeting)
+[2026-08-31 18:59:41] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIze9dl3Kqdonc2xs6koQ",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 18:59:43] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:59:43] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 18:59:43] [MAIN] Reconnect om 30.6s ...
+[2026-08-31 19:00:14] [MAIN] Starter Realtime (forsøk #88) ...
+[2026-08-31 19:00:14] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:00:14] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:00:14] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:00:14] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:00:17] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:00:17] [MAIN] Reconnect om 30.1s ...
+[2026-08-31 19:00:47] [MAIN] Starter Realtime (forsøk #89) ...
+[2026-08-31 19:00:47] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:00:47] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:00:47] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:00:47] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:00:50] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:00:50] [MAIN] Reconnect om 30.6s ...
+[2026-08-31 19:01:20] [MAIN] Starter Realtime (forsøk #90) ...
+[2026-08-31 19:01:20] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:01:21] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:01:21] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:01:21] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:01:21] [WS→] session.update sendt
+[2026-08-31 19:01:21] [WS→] conversation.item.create (greeting)
+[2026-08-31 19:01:21] [WS→] response.create (greeting)
+[2026-08-31 19:01:21] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzflX5t6hLZXgkfd2AJD",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 19:01:23] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:01:23] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:01:23] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 19:01:54] [MAIN] Starter Realtime (forsøk #91) ...
+[2026-08-31 19:01:54] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:01:54] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:01:54] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:01:54] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:01:54] [WS→] session.update sendt
+[2026-08-31 19:01:54] [WS→] conversation.item.create (greeting)
+[2026-08-31 19:01:54] [WS→] response.create (greeting)
+[2026-08-31 19:01:54] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzgI3JSHYmWNYBYUMmVU",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 19:01:57] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:01:57] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:01:57] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 19:02:27] [MAIN] Starter Realtime (forsøk #92) ...
+[2026-08-31 19:02:27] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:02:28] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:02:28] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:02:28] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:02:30] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:02:30] [MAIN] Reconnect om 30.5s ...
+[2026-08-31 19:03:00] [MAIN] Starter Realtime (forsøk #93) ...
+[2026-08-31 19:03:00] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:03:01] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:03:01] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:03:01] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:03:03] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:03:03] [MAIN] Reconnect om 30.4s ...
+[2026-08-31 19:03:34] [MAIN] Starter Realtime (forsøk #94) ...
+[2026-08-31 19:03:34] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:03:34] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:03:34] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:03:34] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:03:37] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:03:37] [MAIN] Reconnect om 31.0s ...
+[2026-08-31 19:04:08] [MAIN] Starter Realtime (forsøk #95) ...
+[2026-08-31 19:04:08] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:04:08] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:04:08] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:04:08] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:04:08] [WS→] session.update sendt
+[2026-08-31 19:04:08] [WS→] conversation.item.create (greeting)
+[2026-08-31 19:04:08] [WS→] response.create (greeting)
+[2026-08-31 19:04:08] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIziSvUYIYKAzmxXwpXPv",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 19:04:10] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:04:10] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:04:10] [MAIN] Reconnect om 30.9s ...
+[2026-08-31 19:04:41] [MAIN] Starter Realtime (forsøk #96) ...
+[2026-08-31 19:04:41] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:04:42] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:04:42] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:04:42] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:04:42] [WS→] session.update sendt
+[2026-08-31 19:04:42] [WS→] conversation.item.create (greeting)
+[2026-08-31 19:04:42] [WS→] response.create (greeting)
+[2026-08-31 19:04:42] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzj0lyVTcccbD6TUlS3s",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 19:04:44] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:04:44] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:04:44] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 19:05:15] [MAIN] Starter Realtime (forsøk #97) ...
+[2026-08-31 19:05:15] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:05:15] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:05:15] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:05:15] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:05:18] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:05:18] [MAIN] Reconnect om 30.3s ...
+[2026-08-31 19:05:48] [MAIN] Starter Realtime (forsøk #98) ...
+[2026-08-31 19:05:48] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:05:49] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:05:49] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:05:49] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:05:49] [WS→] session.update sendt
+[2026-08-31 19:05:49] [WS→] conversation.item.create (greeting)
+[2026-08-31 19:05:49] [WS→] response.create (greeting)
+[2026-08-31 19:05:49] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzk5Ki2wXsedLMFV1U34",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 19:05:51] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:05:51] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:05:51] [MAIN] Reconnect om 30.7s ...
+[2026-08-31 19:06:22] [MAIN] Starter Realtime (forsøk #99) ...
+[2026-08-31 19:06:22] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:06:22] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:06:22] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:06:22] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:06:22] [WS→] session.update sendt
+[2026-08-31 19:06:22] [WS→] conversation.item.create (greeting)
+[2026-08-31 19:06:22] [WS→] response.create (greeting)
+[2026-08-31 19:06:22] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzkcRgRIwNGgMWErlady",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 19:06:24] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:06:24] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:06:24] [MAIN] Reconnect om 30.2s ...
+[2026-08-31 19:06:55] [MAIN] Starter Realtime (forsøk #100) ...
+[2026-08-31 19:06:55] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2026-08-31 19:06:55] [WS] Tilkoblet OpenAI Realtime!
+[2026-08-31 19:06:55] [SESSION] Modell: gpt-realtime, stemme: alloy
+[2026-08-31 19:06:55] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2026-08-31 19:06:55] [WS→] session.update sendt
+[2026-08-31 19:06:55] [WS→] conversation.item.create (greeting)
+[2026-08-31 19:06:55] [WS→] response.create (greeting)
+[2026-08-31 19:06:55] [WS-FEIL] {
+  "type": "error",
+  "event_id": "event_EIzl9fHwWYzckCxd3ab8Q",
+  "error": {
+    "type": "invalid_request_error",
+    "code": "beta_api_shape_disabled",
+    "message": "The Realtime Beta API is no longer supported. Please use /v1/realtime for the GA API.",
+    "param": null,
+    "event_id": null
+  }
+}
+[2026-08-31 19:06:58] [WS] Forbindelse lukket i handle_response: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:06:58] [MAIN] Realtime falt ut: received 4000 (private use) invalid_request_error.beta_api_shape_disabled; then sent 4000 (private use) invalid_request_error.beta_api_shape_disabled
+[2026-08-31 19:06:58] [MAIN] Reconnect om 30.9s ...

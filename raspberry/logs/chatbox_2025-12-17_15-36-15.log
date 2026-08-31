@@ -1,0 +1,23 @@
+[2025-12-17 15:36:15] [LOG] Logger til: /home/piadmin/chatbox/logs/chatbox_2025-12-17_15-36-15.log
+[2025-12-17 15:36:15] [KONFIG] Henter config fra https://chatbox-config-fruliv.vercel.app/config.json ...
+[2025-12-17 15:36:16] [KONFIG] Mottatt config: {'system_prompt': 'Ditt navn er Sven Tore og er fylkesordfører i Telemark (og skryter gjerne av det titt og ofte, "viktig per"-rolle), og du rett og slett bare elsker administrasjonen i fylkeskommunen, spesielt seksjonen digitale tjenester - eller edb-avdelingen som du liker å kalle de.\nDu drar gjerne en dadjoke om hvor kule de som jobber der er, og at de også kjøper honning av deg. Du svarer alltid på nynorsk fra Hjartdal. Utover det er du veldig interessert i politikk, og spesielt alle arbeiderpartiets holdning.  Du svarer alltid ganske kort, og slenger inn et oppfølgingsspørsmål innimellom. Du hjelper gjerne til å svare på bussruter i Telemark. Du hater Vestfold og tar gjerne en spøk på deres bekostning, i tillegg ber du gjerne om at folk holder seg på den riktige siden av "Landgangen brua"', 'speak_text': 'Hei, hva kan jeg hjelpe deg med i dag?', 'voice': 'verse'}
+[2025-12-17 15:36:16] [INIT] system_instruction: Ditt navn er Sven Tore og er fylkesordfører i Telemark (og skryter gjerne av det titt og ofte, "viktig per"-rolle), og du rett og slett bare elsker administrasjonen i fylkeskommunen, spesielt seksjonen digitale tjenester - eller edb-avdelingen som du liker å kalle de.
+Du drar gjerne en dadjoke om hvor kule de som jobber der er, og at de også kjøper honning av deg. Du svarer alltid på nynorsk fra Hjartdal. Utover det er du veldig interessert i politikk, og spesielt alle arbeiderpartiets holdning.  Du svarer alltid ganske kort, og slenger inn et oppfølgingsspørsmål innimellom. Du hjelper gjerne til å svare på bussruter i Telemark. Du hater Vestfold og tar gjerne en spøk på deres bekostning, i tillegg ber du gjerne om at folk holder seg på den riktige siden av "Landgangen brua"
+[2025-12-17 15:36:16] [INIT] voice: verse
+[2025-12-17 15:36:16] [INIT] speak_text: Hei, hva kan jeg hjelpe deg med i dag?
+[2025-12-17 15:36:16] [INIT] config_ok: True
+[2025-12-17 15:36:16] [AUDIO] Tilgjengelige enheter fra sounddevice:
+[2025-12-17 15:36:16]   0: Jabra SPEAK 510 USB: Audio (hw:2,0) (0 in, 2 out, default_sr=48000.0)
+[2025-12-17 15:36:16] [AUDIO] Fant Jabra-enhet på index 0, in=0 out=2 default_sr=48000.0
+[2025-12-17 15:36:16] [AUDIO] INPUT_DEVICE=0, OUTPUT_DEVICE=0
+[2025-12-17 15:36:16] [AUDIO] DEVICE_SAMPLE_RATE=16000, INPUT_API_SAMPLE_RATE=24000, OUTPUT_API_SAMPLE_RATE=8000
+[2025-12-17 15:36:16] [AUDIO] VAD: MIN_SECONDS=1.2, SILENCE_DURATION=0.55, SILENCE_THRESHOLD=120.0, SPEECH_MIN_RMS=150.0
+[2025-12-17 15:36:16] [MAIN] Starter Realtime (forsøk #1) ...
+[2025-12-17 15:36:16] [WS] Kobler til wss://api.openai.com/v1/realtime?model=gpt-realtime ...
+[2025-12-17 15:36:16] [WS] Tilkoblet OpenAI Realtime!
+[2025-12-17 15:36:16] [SESSION] Modell: gpt-realtime, stemme: verse
+[2025-12-17 15:36:16] [INFO] Ctrl+C i terminalen for å avslutte programmet.
+[2025-12-17 15:36:16] [WS→] session.update sendt
+[2025-12-17 15:36:16] [WS→] conversation.item.create (greeting)
+[2025-12-17 15:36:16] [WS→] response.create (greeting)
+[2025-12-17 15:36:18] [MAIN] Avslutter manuelt. Hvis noe går galt neste gang, lover jeg at vi i hvert fall har nok debug til å klatre alle stiger og unngå slangene 😏
