@@ -1,419 +1,154 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import LivLogo from "../components/LivLogo";
 import { REALTIME_MODELS, REALTIME_VOICES, TRANSCRIPTION_MODELS } from "../utils/realtime-options";
 
 const VAD_OPTIONS = [
-  { value: "low", label: "Rolig – venter lenger" },
-  { value: "medium", label: "Medium" },
-  { value: "high", label: "Rask – svarer tidligere" },
-  { value: "auto", label: "Automatisk" },
+  ["auto", "Automatisk"], ["low", "Rolig – venter lenger"],
+  ["medium", "Medium"], ["high", "Rask – svarer tidligere"],
 ];
 
-export default function Admin() {
-  const [username, setUsername] = useState("");
+const INITIAL = {
+  system_prompt: "", speak_text: "", voice: "marin", model: "gpt-realtime",
+  vad_eagerness: "auto", memory_enabled: true, memory_limit: 8, speed: 0.9,
+  noise_reduction: "far_field", transcription_model: "gpt-realtime-whisper",
+  max_output_tokens: 512, reasoning_effort: "low",
+};
+
+function Field({ label, hint, children }) {
+  return <label className="field"><span>{label}</span>{hint && <small>{hint}</small>}{children}</label>;
+}
+
+function Login({ onLogin }) {
+  const [username, setUsername] = useState("boks1");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
 
-  const [systemPrompt, setSystemPrompt] = useState("");
-  const [speakText, setSpeakText] = useState("");
-  const [voice, setVoice] = useState("alloy");
-  const [model, setModel] = useState("gpt-realtime");
-  const [vadEagerness, setVadEagerness] = useState("auto");
-  const [memoryEnabled, setMemoryEnabled] = useState(true);
-  const [memoryLimit, setMemoryLimit] = useState(8);
-  const [speed, setSpeed] = useState(1);
-  const [noiseReduction, setNoiseReduction] = useState("far_field");
-  const [transcriptionModel, setTranscriptionModel] = useState("gpt-realtime-whisper");
-  const [maxOutputTokens, setMaxOutputTokens] = useState(512);
-  const [reasoningEffort, setReasoningEffort] = useState("low");
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetch(`/config.json?t=${Date.now()}`, { cache: "no-store" })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Kunne ikke hente config.json");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          // Støtt både system_prompt og system_instruction, men skriv tilbake som system_prompt
-          setSystemPrompt(data.system_prompt || data.system_instruction || "");
-          setSpeakText(data.speak_text || "");
-          setVoice(data.voice || "alloy");
-          setModel(data.model || "gpt-realtime");
-          setVadEagerness(data.vad_eagerness || "auto");
-          setMemoryEnabled(data.memory_enabled !== false);
-          setMemoryLimit(data.memory_limit ?? 8);
-          setSpeed(data.speed ?? 1);
-          setNoiseReduction(data.noise_reduction ?? "far_field");
-          setTranscriptionModel(data.transcription_model ?? "gpt-realtime-whisper");
-          setMaxOutputTokens(data.max_output_tokens ?? 512);
-          setReasoningEffort(data.reasoning_effort ?? "low");
-        })
-        .catch((err) => {
-          console.error("Feil ved henting av config:", err);
-          alert("Kunne ikke hente config fra serveren (se konsollen for detaljer).");
-        });
-    }
-  }, [isLoggedIn]);
-
-  async function handleLogin(e) {
-    e.preventDefault();
-    const res = await fetch("/api/check-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-      const result = await res.json();
-      if (result.ok) {
-        setIsLoggedIn(true);
-      } else {
-        alert("Feil brukernavn eller passord");
-      }
-  }
-
-  async function handleSave(e) {
-    e.preventDefault();
-    const res = await fetch("/api/update-config", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        system_prompt: systemPrompt,
-        speak_text: speakText,
-        voice: voice,
-        model,
-        vad_eagerness: vadEagerness,
-        memory_enabled: memoryEnabled,
-        memory_limit: Number(memoryLimit),
-        speed: Number(speed),
-        noise_reduction: noiseReduction,
-        transcription_model: transcriptionModel,
-        max_output_tokens: Number(maxOutputTokens),
-        reasoning_effort: reasoningEffort,
-      }),
+  async function submit(event) {
+    event.preventDefault(); setBusy(true); setError("");
+    const response = await fetch("/api/check-password", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
     });
-    if (res.ok) {
-      alert("Lagret! Raspberry Pi-en tar i bruk endringen ved oppstart eller innen fem minutter.");
-    } else {
-      const err = await res.json().catch(() => ({}));
-      console.error("Feil ved lagring:", err);
-      alert("Kunne ikke lagre");
-    }
-  }
-
-  const layoutStyle = {
-    fontFamily: "sans-serif",
-    lineHeight: "1.6",
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    backgroundColor: "#f9fafb",
-  };
-
-  const containerStyle = {
-    flex: 1,
-    maxWidth: "600px",
-    margin: "2rem auto",
-    padding: "1.5rem",
-    backgroundColor: "white",
-    borderRadius: "1rem",
-    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
-  };
-
-  const footerStyle = {
-    padding: "1rem",
-    textAlign: "center",
-    backgroundColor: "#f3f4f6",
-    fontSize: "0.875rem",
-    color: "#4b5563",
-  };
-
-  if (!isLoggedIn) {
-    return (
-      <div style={layoutStyle}>
-        <div style={containerStyle}>
-          <h1
-            style={{
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-              marginBottom: "1rem",
-            }}
-          >
-            Innlogging for å tilpasse boks1 din
-          </h1>
-          <form
-            onSubmit={handleLogin}
-            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-          >
-            <input
-              style={{
-                padding: "0.75rem",
-                border: "1px solid #ccc",
-                borderRadius: "0.5rem",
-              }}
-              placeholder="Brukernavn"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
-              type="password"
-              style={{
-                padding: "0.75rem",
-                border: "1px solid #ccc",
-                borderRadius: "0.5rem",
-              }}
-              placeholder="Passord"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              type="submit"
-              style={{
-                backgroundColor: "#2563eb",
-                color: "white",
-                padding: "0.75rem",
-                border: "none",
-                borderRadius: "0.5rem",
-                cursor: "pointer",
-              }}
-            >
-              Logg inn
-            </button>
-          </form>
-        </div>
-        <footer style={footerStyle}>
-          © {new Date().getFullYear()}{" "}
-          <a
-            href="https://www.dmz.no"
-            style={{ color: "#2563eb", textDecoration: "none" }}
-          >
-            DMZ DATA AS
-          </a>
-          . Alle rettigheter reservert.
-        </footer>
-      </div>
-    );
+    setBusy(false);
+    if (response.ok) onLogin(); else setError("Feil brukernavn eller passord.");
   }
 
   return (
-    <div style={layoutStyle}>
-      <div style={containerStyle}>
-        <h1
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-            marginBottom: "1rem",
-          }}
-        >
-          Tilpass samtalepartneren
-        </h1>
+    <main className="login-page">
+      <section className="login-card">
+        <LivLogo />
+        <div><h1>Logg inn</h1><p>For familie og pårørende.</p></div>
+        <form onSubmit={submit} className="login-form">
+          <Field label="Brukernavn"><input value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="username" required /></Field>
+          <Field label="Passord"><input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" required autoFocus /></Field>
+          {error && <p className="form-error" role="alert">{error}</p>}
+          <button className="button button-primary button-full" disabled={busy}>{busy ? "Logger inn …" : "Logg inn"}</button>
+        </form>
+      </section>
+    </main>
+  );
+}
 
-        <form
-          onSubmit={handleSave}
-          style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
-        >
-          <div>
-            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
-              Realtime-modell
-            </label>
-            <p style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 0 }}>
-              Modell-ID kan oppdateres når en ny støttet Realtime-modell blir tilgjengelig.
-            </p>
-            <select
-              value={model}
-              onChange={(e) => setModel(e.target.value)}
-              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc", backgroundColor: "white" }}
-            >
-              {REALTIME_MODELS.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </div>
+export default function Admin() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [config, setConfig] = useState(INITIAL);
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState("");
 
-          <div>
-            <label
-              style={{
-                display: "block",
-                fontWeight: "600",
-                marginBottom: "0.5rem",
-              }}
-            >
-              Hvem er boksen, hvordan skal den svare? (system prompt)
-            </label>
-            <p style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 0 }}>
-              Dette er “personligheten” til boks1. Den vises aldri til brukeren,
-              men styrer hvordan den snakker, hva den prioriterer osv.
-            </p>
-            <textarea
-              value={systemPrompt}
-              onChange={(e) => setSystemPrompt(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                borderRadius: "0.5rem",
-                border: "1px solid #ccc",
-              }}
-              rows={4}
-            />
-          </div>
+  function update(name, value) { setConfig((current) => ({ ...current, [name]: value })); }
 
-          <div>
-            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
-              Talegjenkjenning (semantic VAD)
-            </label>
-            <select
-              value={vadEagerness}
-              onChange={(e) => setVadEagerness(e.target.value)}
-              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc", backgroundColor: "white" }}
-            >
-              {VAD_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </div>
+  useEffect(() => {
+    if (!loggedIn) return;
+    setLoading(true);
+    fetch(`/config.json?t=${Date.now()}`, { cache: "no-store" })
+      .then((response) => { if (!response.ok) throw new Error(); return response.json(); })
+      .then((data) => setConfig({ ...INITIAL, ...data, system_prompt: data.system_prompt || data.system_instruction || "" }))
+      .catch(() => setMessage("Kunne ikke hente innstillingene. Prøv igjen."))
+      .finally(() => setLoading(false));
+  }, [loggedIn]);
 
-          <div>
-            <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: "600" }}>
-              <input
-                type="checkbox"
-                checked={memoryEnabled}
-                onChange={(e) => setMemoryEnabled(e.target.checked)}
-              />
-              Bruk lokalt minne på Raspberry Pi-en
-            </label>
-            <label style={{ display: "block", marginTop: "0.75rem", fontSize: "0.9rem" }}>
-              Maks minner per session
-            </label>
-            <input
-              type="number"
-              min="0"
-              max="50"
-              value={memoryLimit}
-              onChange={(e) => setMemoryLimit(e.target.value)}
-              disabled={!memoryEnabled}
-              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc" }}
-            />
-          </div>
+  async function save(event) {
+    event.preventDefault(); setSaving(true); setMessage("");
+    const payload = {
+      ...config, memory_limit: Number(config.memory_limit), speed: Number(config.speed),
+      max_output_tokens: Number(config.max_output_tokens),
+    };
+    const response = await fetch("/api/update-config", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+    });
+    setSaving(false);
+    setMessage(response.ok
+      ? "Lagret og sendt. Boksen tar i bruk endringen ved oppstart eller innen fem minutter."
+      : "Kunne ikke lagre innstillingene. Prøv igjen.");
+  }
 
-          <div>
-            <label
-              style={{
-                display: "block",
-                fontWeight: "600",
-                marginBottom: "0.5rem",
-              }}
-            >
-              Oppstarts-setning (speak_text)
-            </label>
-            <p style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 0 }}>
-              Dette er det første den sier høyt når den starter eller restarter
-              – en hyggelig liten intro til samtalen.
-            </p>
-            <textarea
-              value={speakText}
-              onChange={(e) => setSpeakText(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                borderRadius: "0.5rem",
-                border: "1px solid #ccc",
-              }}
-              rows={3}
-            />
-          </div>
+  if (!loggedIn) return <Login onLogin={() => setLoggedIn(true)} />;
 
-          <div>
-            <label
-              style={{
-                display: "block",
-                fontWeight: "600",
-                marginBottom: "0.5rem",
-              }}
-            >
-              Stemmetype
-            </label>
-            <p style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 0 }}>
-              Velg hvilken stemme boks1 skal bruke når den snakker. Endring
-              trer i kraft neste gang boksen starter.
-            </p>
-            <select
-              value={voice}
-              onChange={(e) => setVoice(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                borderRadius: "0.5rem",
-                border: "1px solid #ccc",
-                backgroundColor: "white",
-              }}
-            >
-              {REALTIME_VOICES.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label} ({opt.value})
-                </option>
-              ))}
-            </select>
-          </div>
+  return (
+    <main className="admin-shell">
+      <header className="admin-topbar">
+        <LivLogo compact />
+        <div><span>Familie og pårørende</span><button className="button button-secondary button-small" onClick={() => setLoggedIn(false)}>Logg ut</button></div>
+      </header>
 
-          <details style={{ border: "1px solid #e5e7eb", borderRadius: "0.75rem", padding: "1rem" }}>
-            <summary style={{ cursor: "pointer", fontWeight: "600" }}>Avanserte taleinnstillinger</summary>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
-              <label>
-                Talehastighet: {Number(speed).toFixed(2)}×
-                <input type="range" min="0.25" max="1.5" step="0.05" value={speed} onChange={(e) => setSpeed(e.target.value)} style={{ width: "100%" }} />
-              </label>
-              <label>
-                Støyreduksjon
-                <select value={noiseReduction} onChange={(e) => setNoiseReduction(e.target.value)} style={{ display: "block", width: "100%", padding: "0.75rem", marginTop: "0.4rem" }}>
-                  <option value="far_field">Far field – konferansehøyttaler/Jabra</option>
-                  <option value="near_field">Near field – headset/nær mikrofon</option>
-                  <option value="off">Av</option>
-                </select>
-              </label>
-              <label>
-                Transkripsjonsmodell
-                <select value={transcriptionModel} onChange={(e) => setTranscriptionModel(e.target.value)} style={{ display: "block", width: "100%", padding: "0.75rem", marginTop: "0.4rem" }}>
-                  {TRANSCRIPTION_MODELS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-                </select>
-              </label>
-              <label>
-                Maks output-tokens per svar
-                <input type="number" min="1" max="4096" value={maxOutputTokens} onChange={(e) => setMaxOutputTokens(e.target.value)} style={{ display: "block", width: "100%", padding: "0.75rem", marginTop: "0.4rem" }} />
-              </label>
-              <label>
-                Reasoning effort (brukes av Realtime 2-modeller)
-                <select value={reasoningEffort} onChange={(e) => setReasoningEffort(e.target.value)} style={{ display: "block", width: "100%", padding: "0.75rem", marginTop: "0.4rem" }}>
-                  {['minimal', 'low', 'medium', 'high', 'xhigh'].map((value) => <option key={value} value={value}>{value}</option>)}
-                </select>
-              </label>
+      <section className="status-grid" aria-label="Status">
+        <article className="status-card status-positive"><span>Boksen</span><strong><i /> Konfigurasjon klar</strong></article>
+        <article className="status-card"><span>Oppdatering</span><strong>Hvert 5. minutt</strong></article>
+        <article className="status-card"><span>Lokalt minne</span><strong>{config.memory_enabled ? "Slått på" : "Slått av"}</strong></article>
+        <article className="status-card"><span>Modell</span><strong>{config.model}</strong></article>
+      </section>
+
+      <form onSubmit={save} className="settings-grid">
+        <div className="settings-column settings-main">
+          <section className="settings-card prompt-card">
+            <h1>Hvem er Astrid?</h1>
+            <p>Dette leser Liv før hver samtale. Skriv som om du forteller det til en ny hjemmehjelp.</p>
+            <textarea maxLength={4000} value={config.system_prompt} onChange={(e) => update("system_prompt", e.target.value)} rows={13} disabled={loading} />
+            <div className="card-actions"><span>{config.system_prompt.length.toLocaleString("nb-NO")} av 4 000 tegn</span><button className="button button-dark" disabled={saving || loading}>{saving ? "Lagrer …" : "Lagre og send til boksen"}</button></div>
+            {message && <p className={message.startsWith("Lagret") ? "save-message success" : "save-message error"}>{message}</p>}
+          </section>
+
+          <section className="settings-card info-card">
+            <h2>Dagen hennes</h2>
+            <p>Liv bruker hovedinstruksen og det lokale minnet for å holde samtalen personlig og gjenkjennelig.</p>
+            <div className="soft-row"><strong>Hovedinstruks</strong><span>Sendes til hver nye samtale</span></div>
+            <div className="soft-row"><strong>Oppdateringer</strong><span>Hentes automatisk fra nettsiden</span></div>
+            <div className="soft-row"><strong>Personlig minne</strong><span>{config.memory_enabled ? `${config.memory_limit} relevante minner per samtale` : "Lagring er slått av"}</span></div>
+          </section>
+        </div>
+
+        <div className="settings-column">
+          <section className="settings-card voice-card">
+            <h2>Stemmen</h2>
+            <Field label="Hvem skal snakke">
+              <select value={config.voice} onChange={(e) => update("voice", e.target.value)}>{REALTIME_VOICES.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select>
+            </Field>
+            <Field label="Talehastighet" hint={`${Number(config.speed).toFixed(2).replace(".", ",")} ×`}>
+              <input type="range" min="0.25" max="1.5" step="0.05" value={config.speed} onChange={(e) => update("speed", e.target.value)} />
+            </Field>
+            <Field label="Første setning når boksen slås på"><textarea rows={3} value={config.speak_text} onChange={(e) => update("speak_text", e.target.value)} /></Field>
+            <label className="toggle-row"><span><strong>Liv husker samtaler</strong><small>{config.memory_enabled ? `${config.memory_limit} relevante minner` : "Slått av"}</small></span><input type="checkbox" checked={config.memory_enabled} onChange={(e) => update("memory_enabled", e.target.checked)} /><i /></label>
+          </section>
+
+          <details className="technical-card" open>
+            <summary><span><strong>Tekniske innstillinger</strong><small>Modell, støyreduksjon, transkripsjon og tokengrense.</small></span><b>⌄</b></summary>
+            <div className="technical-fields">
+              <Field label="Realtime-modell"><select value={config.model} onChange={(e) => update("model", e.target.value)}>{REALTIME_MODELS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></Field>
+              <Field label="Semantic VAD"><select value={config.vad_eagerness} onChange={(e) => update("vad_eagerness", e.target.value)}>{VAD_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></Field>
+              <Field label="Støyreduksjon"><select value={config.noise_reduction} onChange={(e) => update("noise_reduction", e.target.value)}><option value="far_field">Far field – Jabra</option><option value="near_field">Near field – nær mikrofon</option><option value="off">Av</option></select></Field>
+              <Field label="Transkripsjon"><select value={config.transcription_model} onChange={(e) => update("transcription_model", e.target.value)}>{TRANSCRIPTION_MODELS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></Field>
+              <div className="field-pair">
+                <Field label="Maks output-tokens"><input type="number" min="1" max="4096" value={config.max_output_tokens} onChange={(e) => update("max_output_tokens", e.target.value)} /></Field>
+                <Field label="Minner per samtale"><input type="number" min="0" max="50" value={config.memory_limit} onChange={(e) => update("memory_limit", e.target.value)} disabled={!config.memory_enabled} /></Field>
+              </div>
+              <Field label="Reasoning effort"><select value={config.reasoning_effort} onChange={(e) => update("reasoning_effort", e.target.value)}>{["minimal", "low", "medium", "high", "xhigh"].map((value) => <option key={value}>{value}</option>)}</select></Field>
             </div>
           </details>
-
-          <button
-            type="submit"
-            style={{
-              backgroundColor: "#059669",
-              color: "white",
-              padding: "0.75rem",
-              border: "none",
-              borderRadius: "0.5rem",
-              cursor: "pointer",
-            }}
-          >
-            Lagre
-          </button>
-        </form>
-      </div>
-      <footer style={footerStyle}>
-        © {new Date().getFullYear()}{" "}
-        <a
-          href="https://www.dmz.no"
-          style={{ color: "#2563eb", textDecoration: "none" }}
-        >
-          DMZ DATA AS
-        </a>
-        . Alle rettigheter reservert.
-      </footer>
-    </div>
+          <button className="button button-primary mobile-save" disabled={saving || loading}>{saving ? "Lagrer …" : "Lagre alle innstillinger"}</button>
+        </div>
+      </form>
+    </main>
   );
 }
