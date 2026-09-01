@@ -4,7 +4,7 @@ import types
 import unittest
 from dataclasses import replace
 from pathlib import Path
-from unittest.mock import Mock, patch
+from unittest.mock import AsyncMock, Mock, patch
 
 # PortAudio is hardware-only in CI; the client schema does not need a device.
 sys.modules.setdefault("sounddevice", types.ModuleType("sounddevice"))
@@ -57,6 +57,12 @@ class RealtimeClientTests(unittest.IsolatedAsyncioTestCase):
             input_device=None,
             output_device=None,
             database_path=Path("unused.sqlite3"),
+            speed=1.0,
+            noise_reduction="far_field",
+            transcription_model="gpt-realtime-whisper",
+            max_output_tokens=512,
+            reasoning_effort="low",
+            remote_revision="revision-1",
         )
         self.client = RealtimeClient(config, FakeAudio(), FakeMemory(), FakeUsage())
 
@@ -65,6 +71,9 @@ class RealtimeClientTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(session["type"], "realtime")
         self.assertEqual(session["model"], "gpt-realtime")
         self.assertEqual(session["audio"]["output"]["voice"], "marin")
+        self.assertEqual(session["audio"]["output"]["speed"], 1.0)
+        self.assertEqual(session["audio"]["input"]["noise_reduction"], {"type": "far_field"})
+        self.assertEqual(session["max_output_tokens"], 512)
         vad = session["audio"]["input"]["turn_detection"]
         self.assertEqual(vad["type"], "semantic_vad")
         self.assertTrue(vad["create_response"])
@@ -99,6 +108,14 @@ class RealtimeClientTests(unittest.IsolatedAsyncioTestCase):
             headers={"Authorization": "Bearer device-secret"},
             timeout=10,
         )
+
+    async def test_poll_applies_changed_web_config(self):
+        updated = replace(self.client.config, voice="cedar", remote_revision="revision-2")
+        with patch("raspberry.realtime_client.asyncio.sleep", new=AsyncMock()), patch.object(
+            Config, "load", return_value=updated
+        ):
+            await self.client._watch_for_config_changes()
+        self.assertEqual(self.client.config.voice, "cedar")
 
 
 if __name__ == "__main__":

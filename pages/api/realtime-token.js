@@ -1,6 +1,8 @@
 import crypto from "crypto";
+import { REALTIME_MODELS, REALTIME_VOICES } from "../../utils/realtime-options";
 
-const VOICES = new Set(["marin", "cedar", "alloy", "ash", "ballad", "coral", "echo", "sage", "shimmer", "verse"]);
+const MODELS = new Set(REALTIME_MODELS.map(({ value }) => value));
+const VOICES = new Set(REALTIME_VOICES.map(({ value }) => value));
 
 function safeEqual(first, second) {
   const left = Buffer.from(first || "");
@@ -25,7 +27,7 @@ export default async function handler(req, res) {
   }
 
   const { model = "gpt-realtime", voice = "marin" } = req.body || {};
-  if (typeof model !== "string" || !/^[a-zA-Z0-9._-]{1,100}$/.test(model)) {
+  if (!MODELS.has(model)) {
     return res.status(400).json({ error: "Ugyldig modell" });
   }
   if (!VOICES.has(voice)) {

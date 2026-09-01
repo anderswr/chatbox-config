@@ -5,5 +5,10 @@
   "model": "gpt-realtime",
   "vad_eagerness": "auto",
   "memory_enabled": true,
-  "memory_limit": 8
+  "memory_limit": 8,
+  "speed": 1.0,
+  "noise_reduction": "far_field",
+  "transcription_model": "gpt-realtime-whisper",
+  "max_output_tokens": 512,
+  "reasoning_effort": "low"
 }

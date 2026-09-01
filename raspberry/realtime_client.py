@@ -35,30 +35,40 @@ class RealtimeClient:
         return f"{self.config.instructions}\n\nLokalt lagret brukerminne (bruk bare når relevant):\n{facts}"
 
     def session_event(self) -> dict[str, Any]:
-        return {
-            "type": "session.update",
-            "session": {
-                "type": "realtime",
-                "model": self.config.model,
-                "instructions": self.instructions(),
-                "output_modalities": ["audio"],
-                "audio": {
-                    "input": {
-                        "format": {"type": "audio/pcm", "rate": API_SAMPLE_RATE},
-                        "transcription": {"model": "gpt-4o-mini-transcribe", "language": "no"},
-                        "turn_detection": {
-                            "type": "semantic_vad",
-                            "eagerness": self.config.vad_eagerness,
-                            "create_response": True,
-                            "interrupt_response": True,
-                        },
-                    },
-                    "output": {
-                        "format": {"type": "audio/pcm", "rate": API_SAMPLE_RATE},
-                        "voice": self.config.voice,
+        session = {
+            "type": "realtime",
+            "model": self.config.model,
+            "instructions": self.instructions(),
+            "output_modalities": ["audio"],
+            "max_output_tokens": self.config.max_output_tokens,
+            "audio": {
+                "input": {
+                    "format": {"type": "audio/pcm", "rate": API_SAMPLE_RATE},
+                    "transcription": {"model": self.config.transcription_model, "language": "no"},
+                    "noise_reduction": (
+                        None
+                        if self.config.noise_reduction == "off"
+                        else {"type": self.config.noise_reduction}
+                    ),
+                    "turn_detection": {
+                        "type": "semantic_vad",
+                        "eagerness": self.config.vad_eagerness,
+                        "create_response": True,
+                        "interrupt_response": True,
                     },
                 },
+                "output": {
+                    "format": {"type": "audio/pcm", "rate": API_SAMPLE_RATE},
+                    "voice": self.config.voice,
+                    "speed": self.config.speed,
+                },
             },
+        }
+        if self.config.model.startswith("gpt-realtime-2"):
+            session["reasoning"] = {"effort": self.config.reasoning_effort}
+        return {
+            "type": "session.update",
+            "session": session,
         }
 
     async def _send_audio(self, websocket: Any) -> None:
@@ -105,13 +115,23 @@ class RealtimeClient:
             elif event_type == "error":
                 raise RuntimeError(json.dumps(event.get("error", event), ensure_ascii=False))
 
-    async def _refresh_after_interval(self) -> None:
-        """End the socket periodically so web settings can start a fresh session."""
+    async def _watch_for_config_changes(self) -> None:
+        """Poll web settings and end the socket only when they actually change."""
         import os
 
-        seconds = max(15, int(os.getenv("CONFIG_REFRESH_SECONDS", "60")))
-        await asyncio.sleep(seconds)
-        logging.info("Henter ny webkonfigurasjon og starter en ny Realtime-session")
+        seconds = max(60, int(os.getenv("CONFIG_REFRESH_SECONDS", "300")))
+        while True:
+            await asyncio.sleep(seconds)
+            latest = await asyncio.to_thread(Config.load)
+            if latest.remote_revision is None:
+                logging.warning("Beholder aktiv konfigurasjon fordi webkonfigurasjonen ikke kunne hentes")
+                continue
+            if latest.remote_revision == self.config.remote_revision:
+                logging.info("Webkonfigurasjonen er uendret")
+                continue
+            self.config = latest
+            logging.info("Ny webkonfigurasjon funnet; starter en ny Realtime-session")
+            return
 
     def _access_token(self) -> str:
         """Fetch a short-lived Realtime secret without exposing the OpenAI key."""
@@ -159,7 +179,7 @@ class RealtimeClient:
             tasks = {
                 asyncio.create_task(self._send_audio(websocket)),
                 asyncio.create_task(self._receive(websocket)),
-                asyncio.create_task(self._refresh_after_interval()),
+                asyncio.create_task(self._watch_for_config_changes()),
             }
             done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
             for task in pending:

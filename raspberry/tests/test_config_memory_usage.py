@@ -13,14 +13,14 @@ class ConfigTests(unittest.TestCase):
     def test_loads_realtime_settings(self):
         values = {
             "OPENAI_API_KEY": "test-key",
-            "REALTIME_MODEL": "future-realtime-model",
+            "REALTIME_MODEL": "gpt-realtime-2.1",
             "REALTIME_VOICE": "cedar",
             "VAD_EAGERNESS": "high",
             "MEMORY_ENABLED": "false",
         }
         with patch.dict(os.environ, values, clear=True), patch("raspberry.config.load_dotenv"), patch.object(Config, "_remote_settings", return_value={}):
             config = Config.load()
-        self.assertEqual(config.model, "future-realtime-model")
+        self.assertEqual(config.model, "gpt-realtime-2.1")
         self.assertEqual(config.voice, "cedar")
         self.assertEqual(config.vad_eagerness, "high")
         self.assertFalse(config.memory_enabled)
@@ -45,18 +45,28 @@ class ConfigTests(unittest.TestCase):
             "system_prompt": "Prompt fra nettet",
             "speak_text": "Hei fra nettet",
             "voice": "verse",
-            "model": "remote-model",
+            "model": "gpt-realtime-2",
             "vad_eagerness": "low",
             "memory_enabled": False,
             "memory_limit": 3,
+            "speed": 1.2,
+            "noise_reduction": "near_field",
+            "transcription_model": "gpt-4o-transcribe",
+            "max_output_tokens": 300,
+            "reasoning_effort": "medium",
         }
         with patch.dict(os.environ, {"OPENAI_API_KEY": "test", "REALTIME_VOICE": "alloy"}, clear=True), patch("raspberry.config.load_dotenv"), patch.object(Config, "_remote_settings", return_value=remote):
             config = Config.load()
         self.assertEqual(config.instructions, "Prompt fra nettet")
         self.assertEqual(config.voice, "verse")
-        self.assertEqual(config.model, "remote-model")
+        self.assertEqual(config.model, "gpt-realtime-2")
         self.assertFalse(config.memory_enabled)
         self.assertEqual(config.memory_limit, 3)
+        self.assertEqual(config.speed, 1.2)
+        self.assertEqual(config.noise_reduction, "near_field")
+        self.assertEqual(config.transcription_model, "gpt-4o-transcribe")
+        self.assertEqual(config.max_output_tokens, 300)
+        self.assertIsNotNone(config.remote_revision)
 
 
 class MemoryTests(unittest.TestCase):

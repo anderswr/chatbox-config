@@ -1,17 +1,5 @@
 import { useState, useEffect } from "react";
-
-const VOICE_OPTIONS = [
-  { value: "marin", label: "Marin (anbefalt)" },
-  { value: "cedar", label: "Cedar (anbefalt)" },
-  { value: "alloy", label: "Alloy" },
-  { value: "ash", label: "Ash" },
-  { value: "ballad", label: "Ballad" },
-  { value: "coral", label: "Coral" },
-  { value: "echo", label: "Echo" },
-  { value: "sage", label: "Sage" },
-  { value: "shimmer", label: "Shimmer" },
-  { value: "verse", label: "Verse" },
-];
+import { REALTIME_MODELS, REALTIME_VOICES, TRANSCRIPTION_MODELS } from "../utils/realtime-options";
 
 const VAD_OPTIONS = [
   { value: "low", label: "Rolig – venter lenger" },
@@ -32,10 +20,15 @@ export default function Admin() {
   const [vadEagerness, setVadEagerness] = useState("auto");
   const [memoryEnabled, setMemoryEnabled] = useState(true);
   const [memoryLimit, setMemoryLimit] = useState(8);
+  const [speed, setSpeed] = useState(1);
+  const [noiseReduction, setNoiseReduction] = useState("far_field");
+  const [transcriptionModel, setTranscriptionModel] = useState("gpt-realtime-whisper");
+  const [maxOutputTokens, setMaxOutputTokens] = useState(512);
+  const [reasoningEffort, setReasoningEffort] = useState("low");
 
   useEffect(() => {
     if (isLoggedIn) {
-      fetch("/config.json")
+      fetch(`/config.json?t=${Date.now()}`, { cache: "no-store" })
         .then((res) => {
           if (!res.ok) {
             throw new Error("Kunne ikke hente config.json");
@@ -51,6 +44,11 @@ export default function Admin() {
           setVadEagerness(data.vad_eagerness || "auto");
           setMemoryEnabled(data.memory_enabled !== false);
           setMemoryLimit(data.memory_limit ?? 8);
+          setSpeed(data.speed ?? 1);
+          setNoiseReduction(data.noise_reduction ?? "far_field");
+          setTranscriptionModel(data.transcription_model ?? "gpt-realtime-whisper");
+          setMaxOutputTokens(data.max_output_tokens ?? 512);
+          setReasoningEffort(data.reasoning_effort ?? "low");
         })
         .catch((err) => {
           console.error("Feil ved henting av config:", err);
@@ -87,10 +85,15 @@ export default function Admin() {
         vad_eagerness: vadEagerness,
         memory_enabled: memoryEnabled,
         memory_limit: Number(memoryLimit),
+        speed: Number(speed),
+        noise_reduction: noiseReduction,
+        transcription_model: transcriptionModel,
+        max_output_tokens: Number(maxOutputTokens),
+        reasoning_effort: reasoningEffort,
       }),
     });
     if (res.ok) {
-      alert("Lagret!");
+      alert("Lagret! Raspberry Pi-en tar i bruk endringen ved oppstart eller innen fem minutter.");
     } else {
       const err = await res.json().catch(() => ({}));
       console.error("Feil ved lagring:", err);
@@ -216,12 +219,15 @@ export default function Admin() {
             <p style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 0 }}>
               Modell-ID kan oppdateres når en ny støttet Realtime-modell blir tilgjengelig.
             </p>
-            <input
+            <select
               value={model}
               onChange={(e) => setModel(e.target.value)}
-              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc" }}
-              required
-            />
+              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc", backgroundColor: "white" }}
+            >
+              {REALTIME_MODELS.map((option) => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
           </div>
 
           <div>
@@ -341,13 +347,47 @@ export default function Admin() {
                 backgroundColor: "white",
               }}
             >
-              {VOICE_OPTIONS.map((opt) => (
+              {REALTIME_VOICES.map((opt) => (
                 <option key={opt.value} value={opt.value}>
                   {opt.label} ({opt.value})
                 </option>
               ))}
             </select>
           </div>
+
+          <details style={{ border: "1px solid #e5e7eb", borderRadius: "0.75rem", padding: "1rem" }}>
+            <summary style={{ cursor: "pointer", fontWeight: "600" }}>Avanserte taleinnstillinger</summary>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
+              <label>
+                Talehastighet: {Number(speed).toFixed(2)}×
+                <input type="range" min="0.25" max="1.5" step="0.05" value={speed} onChange={(e) => setSpeed(e.target.value)} style={{ width: "100%" }} />
+              </label>
+              <label>
+                Støyreduksjon
+                <select value={noiseReduction} onChange={(e) => setNoiseReduction(e.target.value)} style={{ display: "block", width: "100%", padding: "0.75rem", marginTop: "0.4rem" }}>
+                  <option value="far_field">Far field – konferansehøyttaler/Jabra</option>
+                  <option value="near_field">Near field – headset/nær mikrofon</option>
+                  <option value="off">Av</option>
+                </select>
+              </label>
+              <label>
+                Transkripsjonsmodell
+                <select value={transcriptionModel} onChange={(e) => setTranscriptionModel(e.target.value)} style={{ display: "block", width: "100%", padding: "0.75rem", marginTop: "0.4rem" }}>
+                  {TRANSCRIPTION_MODELS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+                </select>
+              </label>
+              <label>
+                Maks output-tokens per svar
+                <input type="number" min="1" max="4096" value={maxOutputTokens} onChange={(e) => setMaxOutputTokens(e.target.value)} style={{ display: "block", width: "100%", padding: "0.75rem", marginTop: "0.4rem" }} />
+              </label>
+              <label>
+                Reasoning effort (brukes av Realtime 2-modeller)
+                <select value={reasoningEffort} onChange={(e) => setReasoningEffort(e.target.value)} style={{ display: "block", width: "100%", padding: "0.75rem", marginTop: "0.4rem" }}>
+                  {['minimal', 'low', 'medium', 'high', 'xhigh'].map((value) => <option key={value} value={value}>{value}</option>)}
+                </select>
+              </label>
+            </div>
+          </details>
 
           <button
             type="submit"

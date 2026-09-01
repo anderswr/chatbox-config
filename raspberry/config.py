@@ -5,6 +5,8 @@ from __future__ import annotations
 import os
 import logging
 import time
+import hashlib
+import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -24,6 +26,20 @@ SUPPORTED_VOICES = (
     "sage",
     "shimmer",
     "verse",
+)
+SUPPORTED_MODELS = (
+    "gpt-realtime-2.1",
+    "gpt-realtime-2.1-mini",
+    "gpt-realtime-2",
+    "gpt-realtime-1.5",
+    "gpt-realtime",
+    "gpt-realtime-mini",
+)
+SUPPORTED_TRANSCRIPTION_MODELS = (
+    "gpt-realtime-whisper",
+    "gpt-4o-mini-transcribe",
+    "gpt-4o-transcribe",
+    "whisper-1",
 )
 
 DEFAULT_PROMPT = (
@@ -60,6 +76,12 @@ class Config:
     input_device: str | None
     output_device: str | None
     database_path: Path
+    speed: float
+    noise_reduction: str
+    transcription_model: str
+    max_output_tokens: int
+    reasoning_effort: str
+    remote_revision: str | None
 
     @staticmethod
     def _remote_settings(url: str) -> dict[str, Any]:
@@ -100,22 +122,49 @@ class Config:
             "https://chatbox-config-fruliv.vercel.app/config.json",
         )
         remote = cls._remote_settings(config_url)
+        remote_revision = (
+            hashlib.sha256(json.dumps(remote, sort_keys=True).encode("utf-8")).hexdigest()
+            if remote
+            else None
+        )
 
         voice = str(remote.get("voice") or os.getenv("REALTIME_VOICE", "marin")).strip().lower()
         if voice not in SUPPORTED_VOICES:
             choices = ", ".join(SUPPORTED_VOICES)
             raise ValueError(f"Ugyldig REALTIME_VOICE={voice!r}. Gyldige stemmer: {choices}")
 
+        model = str(remote.get("model") or os.getenv("REALTIME_MODEL", "gpt-realtime")).strip()
+        if model not in SUPPORTED_MODELS:
+            raise ValueError(f"Ugyldig Realtime-modell: {model}")
+
         eagerness = str(remote.get("vad_eagerness") or os.getenv("VAD_EAGERNESS", "auto")).strip().lower()
         if eagerness not in {"low", "medium", "high", "auto"}:
             raise ValueError("VAD_EAGERNESS må være low, medium, high eller auto")
 
         default_db = Path.home() / ".local" / "share" / "chatbox" / "memory.sqlite3"
+        speed = float(remote.get("speed", os.getenv("REALTIME_SPEED", "1")))
+        if not 0.25 <= speed <= 1.5:
+            raise ValueError("REALTIME_SPEED må være mellom 0.25 og 1.5")
+        noise_reduction = str(remote.get("noise_reduction") or os.getenv("NOISE_REDUCTION", "far_field"))
+        if noise_reduction not in {"off", "near_field", "far_field"}:
+            raise ValueError("NOISE_REDUCTION må være off, near_field eller far_field")
+        transcription_model = str(
+            remote.get("transcription_model")
+            or os.getenv("TRANSCRIPTION_MODEL", "gpt-realtime-whisper")
+        )
+        if transcription_model not in SUPPORTED_TRANSCRIPTION_MODELS:
+            raise ValueError(f"Ugyldig transkripsjonsmodell: {transcription_model}")
+        max_output_tokens = int(remote.get("max_output_tokens", os.getenv("MAX_OUTPUT_TOKENS", "512")))
+        if not 1 <= max_output_tokens <= 4096:
+            raise ValueError("MAX_OUTPUT_TOKENS må være mellom 1 og 4096")
+        reasoning_effort = str(remote.get("reasoning_effort") or os.getenv("REASONING_EFFORT", "low"))
+        if reasoning_effort not in {"minimal", "low", "medium", "high", "xhigh"}:
+            raise ValueError("Ugyldig REASONING_EFFORT")
         return cls(
             api_key=api_key,
             token_url=token_url,
             device_token=device_token,
-            model=str(remote.get("model") or os.getenv("REALTIME_MODEL", "gpt-realtime")).strip(),
+            model=model,
             voice=voice,
             instructions=str(
                 remote.get("system_prompt")
@@ -141,4 +190,10 @@ class Config:
             input_device=os.getenv("AUDIO_INPUT_DEVICE") or None,
             output_device=os.getenv("AUDIO_OUTPUT_DEVICE") or None,
             database_path=Path(os.getenv("MEMORY_DB", str(default_db))).expanduser(),
+            speed=speed,
+            noise_reduction=noise_reduction,
+            transcription_model=transcription_model,
+            max_output_tokens=max_output_tokens,
+            reasoning_effort=reasoning_effort,
+            remote_revision=remote_revision,
         )

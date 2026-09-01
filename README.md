@@ -27,7 +27,8 @@ Den langsiktige OpenAI-nøkkelen ligger bare som `OPENAI_API_KEY` i Vercel og
 sendes aldri til Raspberry Pi-en, nettsiden eller `config.json`. Boksen har kun
 en egen `RASPBERRY_DEVICE_TOKEN` i `raspberry/.env` og henter en kortlivet
 Realtime client secret fra Vercel ved hver tilkobling. Samtaleinnstillingene hentes fra nettsidens
-offentlige `config.json` hvert minutt; endringer oppretter en ny Realtime-session.
+offentlige `config.json` hvert femte minutt; en faktisk endring oppretter en ny
+Realtime-session, mens en uendret fil ikke avbryter samtalen.
 `REALTIME_MODEL` i den lokale filen er reserve hvis nettet er nede. Stemmen kan
 ikke byttes etter første lyd i en session, derfor brukes webendringen først i
 den nye sessionen. Støttede stemmer er `marin`, `cedar`, `alloy`,
@@ -37,6 +38,12 @@ Minnet lagres lokalt i SQLite og injiseres i instructions ved neste tilkobling.
 Det er uavhengig av Memory i ChatGPT-appen. Bare ytringer som ser ut som fakta
 eller preferanser lagres. Sett `MEMORY_ENABLED=false` for å deaktivere dette.
 Tokenbruk logges for siste svar, inneværende prosess og akkumulert total.
+
+Admin-siden styrer hovedinstruks, oppstartssetning, modell og stemme. Under
+avanserte taleinnstillinger kan man også styre talehastighet (0,25–1,5×),
+støyreduksjon for nær- eller fjernmikrofon, transkripsjonsmodell, maksimal
+svarlengde og reasoning effort for Realtime 2-modeller. `marin` og `cedar` er
+anbefalte stemmer; `far_field` passer en Jabra konferansehøyttaler.
 
 ### Oppdater boksen med Git
 
