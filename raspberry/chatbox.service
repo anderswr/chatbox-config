@@ -1,0 +1,19 @@
+[Unit]
+Description=Chatbox Samtalepartneren Liv
+Wants=network-online.target sound.target
+After=network-online.target sound.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/piadmin/chatbox
+ExecStartPre=/bin/sleep 6
+ExecStart=/home/piadmin/chatbox/raspberry/.venv/bin/python -m raspberry.main
+Restart=on-failure
+RestartSec=5
+User=piadmin
+EnvironmentFile=-/home/piadmin/chatbox/raspberry/.env
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

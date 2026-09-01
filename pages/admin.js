@@ -1,11 +1,23 @@
 import { useState, useEffect } from "react";
 
 const VOICE_OPTIONS = [
-  { value: "alloy", label: "Alloy (standard)" },
-  { value: "verse", label: "Verse" },
+  { value: "marin", label: "Marin (anbefalt)" },
+  { value: "cedar", label: "Cedar (anbefalt)" },
+  { value: "alloy", label: "Alloy" },
+  { value: "ash", label: "Ash" },
+  { value: "ballad", label: "Ballad" },
+  { value: "coral", label: "Coral" },
+  { value: "echo", label: "Echo" },
   { value: "sage", label: "Sage" },
   { value: "shimmer", label: "Shimmer" },
-  { value: "coral", label: "Coral" },
+  { value: "verse", label: "Verse" },
+];
+
+const VAD_OPTIONS = [
+  { value: "low", label: "Rolig – venter lenger" },
+  { value: "medium", label: "Medium" },
+  { value: "high", label: "Rask – svarer tidligere" },
+  { value: "auto", label: "Automatisk" },
 ];
 
 export default function Admin() {
@@ -16,6 +28,10 @@ export default function Admin() {
   const [systemPrompt, setSystemPrompt] = useState("");
   const [speakText, setSpeakText] = useState("");
   const [voice, setVoice] = useState("alloy");
+  const [model, setModel] = useState("gpt-realtime");
+  const [vadEagerness, setVadEagerness] = useState("auto");
+  const [memoryEnabled, setMemoryEnabled] = useState(true);
+  const [memoryLimit, setMemoryLimit] = useState(8);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -31,6 +47,10 @@ export default function Admin() {
           setSystemPrompt(data.system_prompt || data.system_instruction || "");
           setSpeakText(data.speak_text || "");
           setVoice(data.voice || "alloy");
+          setModel(data.model || "gpt-realtime");
+          setVadEagerness(data.vad_eagerness || "auto");
+          setMemoryEnabled(data.memory_enabled !== false);
+          setMemoryLimit(data.memory_limit ?? 8);
         })
         .catch((err) => {
           console.error("Feil ved henting av config:", err);
@@ -41,21 +61,17 @@ export default function Admin() {
 
   async function handleLogin(e) {
     e.preventDefault();
-    if (username === "boks1") {
-      const res = await fetch("/api/check-password", {
+    const res = await fetch("/api/check-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ username, password }),
       });
       const result = await res.json();
       if (result.ok) {
         setIsLoggedIn(true);
       } else {
-        alert("Feil passord");
+        alert("Feil brukernavn eller passord");
       }
-    } else {
-      alert("Feil brukernavn, kan det være lurt å prøve boks1 kanskje");
-    }
   }
 
   async function handleSave(e) {
@@ -67,6 +83,10 @@ export default function Admin() {
         system_prompt: systemPrompt,
         speak_text: speakText,
         voice: voice,
+        model,
+        vad_eagerness: vadEagerness,
+        memory_enabled: memoryEnabled,
+        memory_limit: Number(memoryLimit),
       }),
     });
     if (res.ok) {
@@ -190,6 +210,21 @@ export default function Admin() {
           style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
         >
           <div>
+            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
+              Realtime-modell
+            </label>
+            <p style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 0 }}>
+              Modell-ID kan oppdateres når en ny støttet Realtime-modell blir tilgjengelig.
+            </p>
+            <input
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc" }}
+              required
+            />
+          </div>
+
+          <div>
             <label
               style={{
                 display: "block",
@@ -213,6 +248,44 @@ export default function Admin() {
                 border: "1px solid #ccc",
               }}
               rows={4}
+            />
+          </div>
+
+          <div>
+            <label style={{ display: "block", fontWeight: "600", marginBottom: "0.5rem" }}>
+              Talegjenkjenning (semantic VAD)
+            </label>
+            <select
+              value={vadEagerness}
+              onChange={(e) => setVadEagerness(e.target.value)}
+              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc", backgroundColor: "white" }}
+            >
+              {VAD_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontWeight: "600" }}>
+              <input
+                type="checkbox"
+                checked={memoryEnabled}
+                onChange={(e) => setMemoryEnabled(e.target.checked)}
+              />
+              Bruk lokalt minne på Raspberry Pi-en
+            </label>
+            <label style={{ display: "block", marginTop: "0.75rem", fontSize: "0.9rem" }}>
+              Maks minner per session
+            </label>
+            <input
+              type="number"
+              min="0"
+              max="50"
+              value={memoryLimit}
+              onChange={(e) => setMemoryLimit(e.target.value)}
+              disabled={!memoryEnabled}
+              style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #ccc" }}
             />
           </div>
 
