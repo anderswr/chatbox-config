@@ -27,6 +27,7 @@ fi
   raspberry/diagnose_audio.py \
   raspberry/main.py \
   raspberry/memory.py \
+  raspberry/preflight.py \
   raspberry/realtime_client.py \
   raspberry/usage.py
 
@@ -40,6 +41,12 @@ if ! grep -Eq '^(RASPBERRY_DEVICE_TOKEN=.{16,}|OPENAI_API_KEY=sk-|openainokkel=s
   echo "FEIL: Sett RASPBERRY_DEVICE_TOKEN (anbefalt) eller OPENAI_API_KEY i raspberry/.env." >&2
   exit 1
 fi
+
+# En eldre .env kan overstyre den nye standarden med en statisk Vercel-fil som
+# ikke finnes. Konfigurasjonen er offentlig og kan hentes direkte fra GitHub.
+sed -i \
+  's#^CHATBOX_CONFIG_URL=https://chatbox-config-fruliv.vercel.app/config.json$#CHATBOX_CONFIG_URL=https://raw.githubusercontent.com/anderswr/chatbox-config/main/public/config.json#' \
+  raspberry/.env
 
 sudo cp raspberry/chatbox.service /etc/systemd/system/chatbox.service
 sudo systemctl daemon-reload

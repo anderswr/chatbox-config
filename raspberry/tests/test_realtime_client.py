@@ -109,6 +109,29 @@ class RealtimeClientTests(unittest.IsolatedAsyncioTestCase):
             timeout=10,
         )
 
+    def test_token_error_explains_endpoint(self):
+        self.client.config = replace(
+            self.client.config,
+            api_key=None,
+            token_url="https://example.vercel.app/api/realtime-token",
+            device_token="device-secret",
+        )
+        response = Mock(ok=False, status_code=404, text="Not Found")
+        with patch("raspberry.realtime_client.requests.post", return_value=response):
+            with self.assertRaisesRegex(RuntimeError, "HTTP 404.*Not Found"):
+                self.client._access_token()
+
+    def test_local_key_is_fallback_when_token_endpoint_is_down(self):
+        self.client.config = replace(
+            self.client.config,
+            api_key="local-test-key",
+            token_url="https://example.vercel.app/api/realtime-token",
+            device_token="device-secret",
+        )
+        response = Mock(ok=False, status_code=404, text="Not Found")
+        with patch("raspberry.realtime_client.requests.post", return_value=response):
+            self.assertEqual(self.client._access_token(), "local-test-key")
+
     async def test_poll_applies_changed_web_config(self):
         updated = replace(self.client.config, voice="cedar", remote_revision="revision-2")
         with patch("raspberry.realtime_client.asyncio.sleep", new=AsyncMock()), patch.object(

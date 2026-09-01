@@ -26,8 +26,8 @@ beskyttet miljøvariabel i Vercel og aldri i offentlig `config.json`.
 Den langsiktige OpenAI-nøkkelen ligger bare som `OPENAI_API_KEY` i Vercel og
 sendes aldri til Raspberry Pi-en, nettsiden eller `config.json`. Boksen har kun
 en egen `RASPBERRY_DEVICE_TOKEN` i `raspberry/.env` og henter en kortlivet
-Realtime client secret fra Vercel ved hver tilkobling. Samtaleinnstillingene hentes fra nettsidens
-dynamiske `/api/config`-adresse hvert femte minutt; en faktisk endring oppretter en ny
+Realtime client secret fra Vercel ved hver tilkobling. Samtaleinnstillingene hentes direkte fra
+GitHubs raw-adresse hvert femte minutt; en faktisk endring oppretter en ny
 Realtime-session, mens en uendret fil ikke avbryter samtalen.
 `REALTIME_MODEL` i den lokale filen er reserve hvis nettet er nede. Stemmen kan
 ikke byttes etter første lyd i en session, derfor brukes webendringen først i
@@ -99,7 +99,26 @@ cd /home/piadmin/chatbox && ./raspberry/install-service.sh
 `is-enabled` skal svare `enabled`. Feil om `.venv/bin/python` betyr normalt at
 miljøet mangler eller ble flyttet; skriptet bygger det på nytt. Kontroller også
 nettinnstillingene med
-`curl -fsS https://chatbox-config-fruliv.vercel.app/api/config`.
+`curl -fsS https://raw.githubusercontent.com/anderswr/chatbox-config/main/public/config.json`.
+
+Vercel-domenet skal aldri gjettes eller endres i klientkoden. Bruk domenet som
+står under **Vercel → Project → Domains** i `REALTIME_TOKEN_URL`. En HTTP 404 på
+`/api/realtime-token` betyr vanligvis at GitHub-versjonen med API-ruten ikke er
+deployet til det eksisterende Vercel-prosjektet; det oppretter ikke et nytt
+domene å endre URL-en i klienten til.
+
+Før tjenesten restartes kan hele kjeden testes uten å åpne lydkortet:
+
+```bash
+cd /home/piadmin/chatbox
+raspberry/.venv/bin/python -m raspberry.preflight
+```
+
+`OK: Realtime client secret mottatt` betyr at Vercel og OpenAI-nøkkelen er
+klare. En forklarende 404 betyr at `pages/api/realtime-token.js` finnes i
+GitHub, men ikke i Vercel-deploymenten som domenet peker på. Da må `main`
+redeployes i det samme Vercel-prosjektet. Installasjonsskriptet flytter også en
+gammel `CHATBOX_CONFIG_URL=.../config.json` til raw GitHub automatisk.
 
 Hvis tjenesten kjører, men du ikke hører lyd, stopp den midlertidig slik at den
 ikke låser lydkortet og kjør den innebygde lydtesten som samme bruker:

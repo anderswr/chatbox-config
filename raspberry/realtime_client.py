@@ -146,7 +146,18 @@ class RealtimeClient:
                 headers={"Authorization": f"Bearer {self.config.device_token}"},
                 timeout=10,
             )
-            response.raise_for_status()
+            if not response.ok:
+                details = response.text[:500].strip()
+                if self.config.api_key:
+                    logging.warning(
+                        "Token-endepunktet svarte HTTP %d; bruker lokal OPENAI_API_KEY som reserve",
+                        response.status_code,
+                    )
+                    return self.config.api_key
+                raise RuntimeError(
+                    f"Token-endepunktet {self.config.token_url} svarte HTTP "
+                    f"{response.status_code}: {details or 'tomt svar'}"
+                )
             value = response.json().get("value")
             if not value:
                 raise RuntimeError("Token-endepunktet returnerte ikke en Realtime client secret")

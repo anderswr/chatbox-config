@@ -47,6 +47,10 @@ DEFAULT_PROMPT = (
     "Still gjerne relevante oppfølgingsspørsmål."
 )
 
+DEFAULT_CONFIG_URL = (
+    "https://raw.githubusercontent.com/anderswr/chatbox-config/main/public/config.json"
+)
+
 
 def _boolean(value: str | None, default: bool) -> bool:
     if value is None:
@@ -109,7 +113,7 @@ class Config:
         load_dotenv(env_path)
 
         api_key = (os.getenv("OPENAI_API_KEY") or os.getenv("openainokkel") or "").strip() or None
-        token_url = os.getenv("REALTIME_TOKEN_URL", "").strip() or None
+        token_url = os.getenv("REALTIME_TOKEN_URL", "").strip().rstrip("/") or None
         device_token = os.getenv("RASPBERRY_DEVICE_TOKEN", "").strip() or None
         if not api_key and not (token_url and device_token):
             raise ValueError(
@@ -117,10 +121,7 @@ class Config:
                 "OPENAI_API_KEY lokalt støttes bare som reserve."
             )
 
-        config_url = os.getenv(
-            "CHATBOX_CONFIG_URL",
-            "https://chatbox-config-fruliv.vercel.app/api/config",
-        )
+        config_url = os.getenv("CHATBOX_CONFIG_URL", DEFAULT_CONFIG_URL).strip()
         remote = cls._remote_settings(config_url)
         remote_revision = (
             hashlib.sha256(json.dumps(remote, sort_keys=True).encode("utf-8")).hexdigest()

@@ -27,6 +27,7 @@ def configure_logging() -> None:
 
 async def main() -> None:
     configure_logging()
+    logging.info("Starter modulær Liv-klient med GA Realtime og lyd-diagnostikk")
     config = Config.load()
     loop = asyncio.get_running_loop()
     stop = asyncio.Event()

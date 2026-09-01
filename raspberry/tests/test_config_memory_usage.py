@@ -4,12 +4,18 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from raspberry.config import Config
+from raspberry.config import Config, DEFAULT_CONFIG_URL
 from raspberry.memory import MemoryStore
 from raspberry.usage import TokenUsage, UsageTracker
 
 
 class ConfigTests(unittest.TestCase):
+    def test_default_config_uses_raw_github(self):
+        self.assertEqual(
+            DEFAULT_CONFIG_URL,
+            "https://raw.githubusercontent.com/anderswr/chatbox-config/main/public/config.json",
+        )
+
     def test_loads_realtime_settings(self):
         values = {
             "OPENAI_API_KEY": "test-key",
