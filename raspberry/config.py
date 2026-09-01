@@ -119,7 +119,7 @@ class Config:
 
         config_url = os.getenv(
             "CHATBOX_CONFIG_URL",
-            "https://chatbox-config-fruliv.vercel.app/config.json",
+            "https://chatbox-config-fruliv.vercel.app/api/config",
         )
         remote = cls._remote_settings(config_url)
         remote_revision = (

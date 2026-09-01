@@ -62,7 +62,7 @@ export default function Admin() {
   useEffect(() => {
     if (!loggedIn) return;
     setLoading(true);
-    fetch(`/config.json?t=${Date.now()}`, { cache: "no-store" })
+    fetch(`/api/config?t=${Date.now()}`, { cache: "no-store" })
       .then((response) => { if (!response.ok) throw new Error(); return response.json(); })
       .then((data) => setConfig({ ...INITIAL, ...data, system_prompt: data.system_prompt || data.system_instruction || "" }))
       .catch(() => setMessage("Kunne ikke hente innstillingene. Prøv igjen."))
@@ -78,10 +78,11 @@ export default function Admin() {
     const response = await fetch("/api/update-config", {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
     });
+    const result = await response.json().catch(() => ({}));
     setSaving(false);
     setMessage(response.ok
-      ? "Lagret og sendt. Boksen tar i bruk endringen ved oppstart eller innen fem minutter."
-      : "Kunne ikke lagre innstillingene. Prøv igjen.");
+      ? "Alle innstillingene er lagret. Boksen tar dem i bruk ved oppstart eller innen fem minutter."
+      : `${result.error || "Kunne ikke lagre innstillingene."}${result.details?.message ? ` ${result.details.message}` : ""}`);
   }
 
   if (!loggedIn) return <Login onLogin={() => setLoggedIn(true)} />;
@@ -106,8 +107,7 @@ export default function Admin() {
             <h1>Hvem er Astrid?</h1>
             <p>Dette leser Liv før hver samtale. Skriv som om du forteller det til en ny hjemmehjelp.</p>
             <textarea maxLength={4000} value={config.system_prompt} onChange={(e) => update("system_prompt", e.target.value)} rows={13} disabled={loading} />
-            <div className="card-actions"><span>{config.system_prompt.length.toLocaleString("nb-NO")} av 4 000 tegn</span><button className="button button-dark" disabled={saving || loading}>{saving ? "Lagrer …" : "Lagre og send til boksen"}</button></div>
-            {message && <p className={message.startsWith("Lagret") ? "save-message success" : "save-message error"}>{message}</p>}
+            <div className="card-actions"><span>{config.system_prompt.length.toLocaleString("nb-NO")} av 4 000 tegn</span></div>
           </section>
 
           <section className="settings-card info-card">
@@ -146,8 +146,12 @@ export default function Admin() {
               <Field label="Reasoning effort"><select value={config.reasoning_effort} onChange={(e) => update("reasoning_effort", e.target.value)}>{["minimal", "low", "medium", "high", "xhigh"].map((value) => <option key={value}>{value}</option>)}</select></Field>
             </div>
           </details>
-          <button className="button button-primary mobile-save" disabled={saving || loading}>{saving ? "Lagrer …" : "Lagre alle innstillinger"}</button>
         </div>
+        <footer className="save-footer">
+          <div><strong>Lagre alle innstillinger</strong><span>Hovedinstruks, stemme og tekniske valg lagres samlet.</span></div>
+          <button className="button button-primary" disabled={saving || loading}>{saving ? "Lagrer …" : "Lagre og send til boksen"}</button>
+          {message && <p className={message.startsWith("Alle innstillingene") ? "save-message success" : "save-message error"} role="status">{message}</p>}
+        </footer>
       </form>
     </main>
   );

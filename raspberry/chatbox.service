@@ -7,11 +7,14 @@ After=network-online.target sound.target
 Type=simple
 WorkingDirectory=/home/piadmin/chatbox
 ExecStartPre=/bin/sleep 6
+ExecStartPre=/usr/bin/test -x /home/piadmin/chatbox/raspberry/.venv/bin/python
+ExecStartPre=/usr/bin/test -r /home/piadmin/chatbox/raspberry/.env
 ExecStart=/home/piadmin/chatbox/raspberry/.venv/bin/python -m raspberry.main
 Restart=on-failure
 RestartSec=5
 User=piadmin
 EnvironmentFile=-/home/piadmin/chatbox/raspberry/.env
+Environment=PYTHONUNBUFFERED=1
 StandardOutput=journal
 StandardError=journal
 

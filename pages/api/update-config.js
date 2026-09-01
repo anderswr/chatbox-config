@@ -1,5 +1,6 @@
 import { hasAdminSession } from "../../utils/admin-auth";
 import { REALTIME_MODELS, REALTIME_VOICES, TRANSCRIPTION_MODELS } from "../../utils/realtime-options";
+import { contentsUrl, githubHeaders, githubSettings } from "../../utils/github-config";
 
 const MODELS = new Set(REALTIME_MODELS.map(({ value }) => value));
 const VOICES = new Set(REALTIME_VOICES.map(({ value }) => value));
@@ -52,35 +53,29 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Ugyldig reasoning effort" });
   }
 
-  const token = process.env.GH_TOKEN;
-  const username = process.env.GH_USERNAME;
-  const repo = process.env.GH_REPO;
-  const path = "public/config.json"; // MÅ være i `public/` for at Pi skal kunne hente den
-  const branch = "main";
+  const github = githubSettings();
 
-  if (!token || !username || !repo) {
+  if (!github.token) {
     return res.status(500).json({
-      error: "Mangler GitHub-konfig (GH_TOKEN, GH_USERNAME, GH_REPO)",
+      error: "Mangler GH_TOKEN (eller GITHUB_TOKEN) i Vercel",
     });
   }
 
   try {
     // Hent SHA for eksisterende fil
     const getRes = await fetch(
-      `https://api.github.com/repos/${username}/${repo}/contents/${path}`,
+      contentsUrl(github),
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/vnd.github+json",
-        },
+        headers: githubHeaders(github.token),
+        cache: "no-store",
       }
     );
 
     if (!getRes.ok) {
       const err = await getRes.json().catch(() => ({}));
       return res
-        .status(500)
-        .json({ error: "Kunne ikke hente SHA", details: err });
+        .status(502)
+        .json({ error: "Kunne ikke lese config fra GitHub. Kontroller repo og token.", details: err });
     }
 
     const fileData = await getRes.json();
@@ -109,18 +104,18 @@ export default async function handler(req, res) {
 
     // Oppdater fil
     const updateRes = await fetch(
-      `https://api.github.com/repos/${username}/${repo}/contents/${path}`,
+      `https://api.github.com/repos/${github.fullName}/contents/${github.path}`,
       {
         method: "PUT",
         headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/vnd.github+json",
+          ...githubHeaders(github.token),
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: "Oppdatert config fra admin-nettsiden",
           content: newContent,
           sha: sha,
-          branch: branch,
+          branch: github.branch,
         }),
       }
     );
@@ -128,11 +123,11 @@ export default async function handler(req, res) {
     if (!updateRes.ok) {
       const err = await updateRes.json().catch(() => ({}));
       return res
-        .status(500)
-        .json({ error: "Kunne ikke lagre til GitHub", details: err });
+        .status(502)
+        .json({ error: "GitHub avviste lagringen. Tokenet må ha Contents: Read and write.", details: err });
     }
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, config_url: "/api/config" });
   } catch (e) {
     return res
       .status(500)

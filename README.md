@@ -27,7 +27,7 @@ Den langsiktige OpenAI-nøkkelen ligger bare som `OPENAI_API_KEY` i Vercel og
 sendes aldri til Raspberry Pi-en, nettsiden eller `config.json`. Boksen har kun
 en egen `RASPBERRY_DEVICE_TOKEN` i `raspberry/.env` og henter en kortlivet
 Realtime client secret fra Vercel ved hver tilkobling. Samtaleinnstillingene hentes fra nettsidens
-offentlige `config.json` hvert femte minutt; en faktisk endring oppretter en ny
+dynamiske `/api/config`-adresse hvert femte minutt; en faktisk endring oppretter en ny
 Realtime-session, mens en uendret fil ikke avbryter samtalen.
 `REALTIME_MODEL` i den lokale filen er reserve hvis nettet er nede. Stemmen kan
 ikke byttes etter første lyd i en session, derfor brukes webendringen først i
@@ -62,15 +62,13 @@ servicen som bruker `WorkingDirectory=/home/piadmin/chatbox` og kjører
 `python3 main.py`. Selve implementasjonen ligger fortsatt i
 `raspberry/main.py`.
 
-En oppdatert systemd-unit ligger i `raspberry/chatbox.service`. Den kan
-installeres slik:
+En oppdatert systemd-unit ligger i `raspberry/chatbox.service`. Installer den
+med skriptet som også bygger et manglende eller flyttet virtualenv på nytt:
 
 ```bash
-sudo cp raspberry/chatbox.service /etc/systemd/system/chatbox.service
-sudo chown piadmin:piadmin /home/piadmin/chatbox/raspberry/.env
-sudo chmod 0600 /home/piadmin/chatbox/raspberry/.env
-sudo systemctl daemon-reload
-sudo systemctl enable --now chatbox
+cd /home/piadmin/chatbox
+chmod +x raspberry/install-service.sh
+./raspberry/install-service.sh
 ```
 
 Systemd-uniten leser `/home/piadmin/chatbox/raspberry/.env`. Minimum er:
@@ -83,6 +81,43 @@ REALTIME_TOKEN_URL=https://chatbox-config-fruliv.vercel.app/api/realtime-token
 Direkte `OPENAI_API_KEY` på boksen støttes bare som reserve for lokal feilsøking.
 I produksjon skal den fjernes fra boksen. Etter endring av unit eller `.env`, kjør
 `sudo systemctl daemon-reload && sudo systemctl restart chatbox`.
+
+Hvis Liv ikke starter, kjør:
+
+```bash
+sudo systemctl is-enabled chatbox
+sudo systemctl status chatbox --no-pager --full
+sudo journalctl -u chatbox -b -n 150 --no-pager
+/home/piadmin/chatbox/raspberry/.venv/bin/python --version
+cd /home/piadmin/chatbox && ./raspberry/install-service.sh
+```
+
+`is-enabled` skal svare `enabled`. Feil om `.venv/bin/python` betyr normalt at
+miljøet mangler eller ble flyttet; skriptet bygger det på nytt. Kontroller også
+nettinnstillingene med
+`curl -fsS https://chatbox-config-fruliv.vercel.app/api/config`.
+
+### Lagring fra administrasjonssiden
+
+Lagreknappen oppdaterer `public/config.json` gjennom GitHub Contents API.
+`/api/config` leser alltid siste versjon direkte fra GitHub med cache avslått.
+Dermed krever senere innstillingsendringer ingen ny Vercel-build. Denne
+versjonen må likevel deployes én gang for å installere endepunktet.
+
+Disse miljøvariablene må settes i Vercel:
+
+```dotenv
+GH_TOKEN=github-fine-grained-token-med-contents-write
+GH_REPO=anderswr/chatbox-config
+GH_BRANCH=main
+PIADMIN_PASSWORD=...
+PIADMIN_SESSION_SECRET=lang-tilfeldig-verdi
+```
+
+GitHub-tokenet må ha tilgang til repoet og **Contents: Read and write**.
+`GITHUB_TOKEN` kan brukes som alternativt navn. Etter første oppsett av
+variablene må Vercel redeployes én gang. Adminsiden viser den konkrete
+serverfeilen dersom GitHub avviser lagringen.
 
 Administratorpassordet ligger ikke i kildekoden. Sett eller reset
 `PIADMIN_PASSWORD` og en tilfeldig `PIADMIN_SESSION_SECRET` under Vercel →
