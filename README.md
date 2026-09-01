@@ -71,6 +71,10 @@ chmod +x raspberry/install-service.sh
 ./raspberry/install-service.sh
 ```
 
+Skriptet validerer bare de aktive Liv-modulene. Gamle filer som
+`main.old.py` og det historiske `raspberry/venv` ignoreres og kan derfor ikke
+stoppe installasjonen med irrelevante kompileringsfeil.
+
 Systemd-uniten leser `/home/piadmin/chatbox/raspberry/.env`. Minimum er:
 
 ```dotenv

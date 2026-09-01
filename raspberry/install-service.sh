@@ -18,7 +18,16 @@ fi
 
 "$VENV/bin/python" -m pip install --upgrade pip
 "$VENV/bin/python" -m pip install -r raspberry/requirements.txt
-"$VENV/bin/python" -m compileall -q raspberry
+# Kontroller bare filene som faktisk brukes. Repoet inneholder gamle arkivfiler
+# og et historisk `raspberry/venv` som ikke skal kompileres eller kjøres.
+"$VENV/bin/python" -m py_compile \
+  raspberry/__init__.py \
+  raspberry/audio.py \
+  raspberry/config.py \
+  raspberry/main.py \
+  raspberry/memory.py \
+  raspberry/realtime_client.py \
+  raspberry/usage.py
 
 if [[ ! -f raspberry/.env ]]; then
   cp raspberry/.env.example raspberry/.env
@@ -26,8 +35,8 @@ if [[ ! -f raspberry/.env ]]; then
   echo "FEIL: raspberry/.env ble opprettet. Legg inn RASPBERRY_DEVICE_TOKEN og kjør skriptet igjen." >&2
   exit 1
 fi
-if ! grep -Eq '^RASPBERRY_DEVICE_TOKEN=.{16,}' raspberry/.env; then
-  echo "FEIL: Sett en gyldig RASPBERRY_DEVICE_TOKEN i raspberry/.env." >&2
+if ! grep -Eq '^(RASPBERRY_DEVICE_TOKEN=.{16,}|OPENAI_API_KEY=sk-|openainokkel=sk-)' raspberry/.env; then
+  echo "FEIL: Sett RASPBERRY_DEVICE_TOKEN (anbefalt) eller OPENAI_API_KEY i raspberry/.env." >&2
   exit 1
 fi
 
@@ -38,4 +47,3 @@ sudo systemctl restart chatbox.service
 echo
 sudo systemctl --no-pager --full status chatbox.service || true
 echo "Følg loggen med: sudo journalctl -u chatbox -f"
-
