@@ -1,16 +1,34 @@
+import { hasAdminSession } from "../../utils/admin-auth";
+
+const VOICES = new Set(["marin", "cedar", "alloy", "ash", "ballad", "coral", "echo", "sage", "shimmer", "verse"]);
+const VAD_EAGERNESS = new Set(["low", "medium", "high", "auto"]);
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Kun POST-støttet" });
   }
 
-  const { system_prompt, speak_text, voice } = req.body;
+  if (!hasAdminSession(req)) {
+    return res.status(401).json({ error: "Ikke innlogget" });
+  }
+
+  const { system_prompt, speak_text, voice, model, vad_eagerness, memory_enabled, memory_limit } = req.body;
 
   if (typeof system_prompt !== "string" || typeof speak_text !== "string") {
     return res.status(400).json({ error: "Ugyldig input" });
   }
 
-  if (voice !== undefined && typeof voice !== "string") {
-    return res.status(400).json({ error: "Ugyldig verdi for voice" });
+  if (!VOICES.has(voice)) {
+    return res.status(400).json({ error: "Ugyldig stemme" });
+  }
+  if (typeof model !== "string" || !model.trim() || model.length > 100) {
+    return res.status(400).json({ error: "Ugyldig modell" });
+  }
+  if (!VAD_EAGERNESS.has(vad_eagerness)) {
+    return res.status(400).json({ error: "Ugyldig VAD-innstilling" });
+  }
+  if (typeof memory_enabled !== "boolean" || !Number.isInteger(memory_limit) || memory_limit < 0 || memory_limit > 50) {
+    return res.status(400).json({ error: "Ugyldig minneinnstilling" });
   }
 
   const token = process.env.GH_TOKEN;
@@ -49,13 +67,14 @@ export default async function handler(req, res) {
 
     // Bygg nytt config-objekt
     const configObj = {
-      system_prompt,
-      speak_text,
+      system_prompt: system_prompt.trim(),
+      speak_text: speak_text.trim(),
+      voice,
+      model: model.trim(),
+      vad_eagerness,
+      memory_enabled,
+      memory_limit,
     };
-
-    if (voice && voice.trim()) {
-      configObj.voice = voice.trim();
-    }
 
     // Nytt innhold som base64
     const newContent = Buffer.from(
