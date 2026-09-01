@@ -95,7 +95,9 @@ class RealtimeClient:
         async for raw in websocket:
             event = json.loads(raw)
             event_type = event.get("type", "")
-            if event_type == "response.output_audio.delta":
+            if event_type in {"session.created", "session.updated", "response.created"}:
+                logging.info("Realtime-event: %s", event_type)
+            elif event_type == "response.output_audio.delta":
                 self.audio.enqueue(
                     base64.b64decode(event["delta"]),
                     event["item_id"],
@@ -112,6 +114,8 @@ class RealtimeClient:
                 logging.info("Liv: %s", event.get("transcript", "").strip())
             elif event_type == "response.done":
                 self.usage.add((event.get("response") or {}).get("usage"))
+                status = (event.get("response") or {}).get("status", "ukjent")
+                logging.info("Realtime-svar ferdig: status=%s", status)
             elif event_type == "error":
                 raise RuntimeError(json.dumps(event.get("error", event), ensure_ascii=False))
 

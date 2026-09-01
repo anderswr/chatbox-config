@@ -51,6 +51,8 @@ class DuplexAudio:
         self.current_item_id: str | None = None
         self.current_content_index = 0
         self.played_api_bytes = 0
+        self._logged_capture = False
+        self._logged_playback = False
         self.input_device, input_info = _device(input_selector, "input")
         self.output_device, output_info = _device(output_selector, "output")
         self.input_rate = round(input_info["default_samplerate"])
@@ -75,6 +77,9 @@ class DuplexAudio:
         if status:
             logging.warning("Mikrofonstatus: %s", status)
         pcm = resample_pcm16(bytes(data), self.input_rate, API_SAMPLE_RATE)
+        if not self._logged_capture:
+            logging.info("Mikrofonstrøm mottatt (%d bytes per blokk)", len(pcm))
+            self._logged_capture = True
         self.loop.call_soon_threadsafe(self._put_input, pcm)
 
     def _play(self, output: memoryview, frames: int, time: Any, status: Any) -> None:
@@ -90,6 +95,9 @@ class DuplexAudio:
         output[len(chunk):] = b"\0" * (len(output) - len(chunk))
 
     def enqueue(self, pcm: bytes, item_id: str, content_index: int) -> None:
+        if not self._logged_playback:
+            logging.info("Første lydpakke fra OpenAI mottatt (%d bytes)", len(pcm))
+            self._logged_playback = True
         converted = resample_pcm16(pcm, API_SAMPLE_RATE, self.output_rate)
         with self.lock:
             if item_id != self.current_item_id:
@@ -113,6 +121,7 @@ class DuplexAudio:
     def start(self) -> None:
         self.input_stream.start()
         self.output_stream.start()
+        logging.info("Full-dupleks lyd startet")
 
     def close(self) -> None:
         for stream in (self.input_stream, self.output_stream):

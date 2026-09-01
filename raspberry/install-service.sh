@@ -24,6 +24,7 @@ fi
   raspberry/__init__.py \
   raspberry/audio.py \
   raspberry/config.py \
+  raspberry/diagnose_audio.py \
   raspberry/main.py \
   raspberry/memory.py \
   raspberry/realtime_client.py \

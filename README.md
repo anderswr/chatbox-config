@@ -101,6 +101,31 @@ miljøet mangler eller ble flyttet; skriptet bygger det på nytt. Kontroller ogs
 nettinnstillingene med
 `curl -fsS https://chatbox-config-fruliv.vercel.app/api/config`.
 
+Hvis tjenesten kjører, men du ikke hører lyd, stopp den midlertidig slik at den
+ikke låser lydkortet og kjør den innebygde lydtesten som samme bruker:
+
+```bash
+sudo systemctl stop chatbox
+cd /home/piadmin/chatbox
+raspberry/.venv/bin/python -m raspberry.diagnose_audio
+sudo systemctl start chatbox
+sudo journalctl -u chatbox -f
+```
+
+Testen skriver ut alle lydkort, valgt mikrofon/høyttaler, spiller en testtone
+og måler mikrofonnivået. Hvis feil enhet velges, legg indeks eller en del av
+enhetsnavnet i `raspberry/.env`, for eksempel:
+
+```dotenv
+AUDIO_INPUT_DEVICE=Jabra
+AUDIO_OUTPUT_DEVICE=Jabra
+```
+
+Ved normal drift skal journalen vise `Mikrofonstrøm mottatt`,
+`Realtime-event: session.updated` og `Første lydpakke fra OpenAI mottatt`.
+Hvis de to første finnes, men den siste mangler, ligger feilen mellom
+Realtime-konfigurasjonen og OpenAI – ikke i høyttaleren.
+
 ### Lagring fra administrasjonssiden
 
 Lagreknappen oppdaterer `public/config.json` gjennom GitHub Contents API.
