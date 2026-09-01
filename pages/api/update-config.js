@@ -1,16 +1,55 @@
+import { hasAdminSession } from "../../utils/admin-auth";
+import { REALTIME_MODELS, REALTIME_VOICES, TRANSCRIPTION_MODELS } from "../../utils/realtime-options";
+
+const MODELS = new Set(REALTIME_MODELS.map(({ value }) => value));
+const VOICES = new Set(REALTIME_VOICES.map(({ value }) => value));
+const TRANSCRIPTIONS = new Set(TRANSCRIPTION_MODELS.map(({ value }) => value));
+const VAD_EAGERNESS = new Set(["low", "medium", "high", "auto"]);
+const NOISE_REDUCTION = new Set(["off", "near_field", "far_field"]);
+const REASONING_EFFORT = new Set(["minimal", "low", "medium", "high", "xhigh"]);
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Kun POST-støttet" });
   }
 
-  const { system_prompt, speak_text, voice } = req.body;
+  if (!hasAdminSession(req)) {
+    return res.status(401).json({ error: "Ikke innlogget" });
+  }
+
+  const {
+    system_prompt, speak_text, voice, model, vad_eagerness, memory_enabled,
+    memory_limit, speed, noise_reduction, transcription_model,
+    max_output_tokens, reasoning_effort,
+  } = req.body;
 
   if (typeof system_prompt !== "string" || typeof speak_text !== "string") {
     return res.status(400).json({ error: "Ugyldig input" });
   }
 
-  if (voice !== undefined && typeof voice !== "string") {
-    return res.status(400).json({ error: "Ugyldig verdi for voice" });
+  if (!VOICES.has(voice)) {
+    return res.status(400).json({ error: "Ugyldig stemme" });
+  }
+  if (!MODELS.has(model)) {
+    return res.status(400).json({ error: "Ugyldig modell" });
+  }
+  if (!VAD_EAGERNESS.has(vad_eagerness)) {
+    return res.status(400).json({ error: "Ugyldig VAD-innstilling" });
+  }
+  if (typeof memory_enabled !== "boolean" || !Number.isInteger(memory_limit) || memory_limit < 0 || memory_limit > 50) {
+    return res.status(400).json({ error: "Ugyldig minneinnstilling" });
+  }
+  if (typeof speed !== "number" || speed < 0.25 || speed > 1.5) {
+    return res.status(400).json({ error: "Ugyldig talehastighet" });
+  }
+  if (!NOISE_REDUCTION.has(noise_reduction) || !TRANSCRIPTIONS.has(transcription_model)) {
+    return res.status(400).json({ error: "Ugyldig lydinnstilling" });
+  }
+  if (!Number.isInteger(max_output_tokens) || max_output_tokens < 1 || max_output_tokens > 4096) {
+    return res.status(400).json({ error: "Ugyldig token-grense" });
+  }
+  if (!REASONING_EFFORT.has(reasoning_effort)) {
+    return res.status(400).json({ error: "Ugyldig reasoning effort" });
   }
 
   const token = process.env.GH_TOKEN;
@@ -49,13 +88,19 @@ export default async function handler(req, res) {
 
     // Bygg nytt config-objekt
     const configObj = {
-      system_prompt,
-      speak_text,
+      system_prompt: system_prompt.trim(),
+      speak_text: speak_text.trim(),
+      voice,
+      model: model.trim(),
+      vad_eagerness,
+      memory_enabled,
+      memory_limit,
+      speed,
+      noise_reduction,
+      transcription_model,
+      max_output_tokens,
+      reasoning_effort,
     };
-
-    if (voice && voice.trim()) {
-      configObj.voice = voice.trim();
-    }
 
     // Nytt innhold som base64
     const newContent = Buffer.from(
