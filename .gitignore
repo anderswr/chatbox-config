@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.env
+.env.*
+!.env.example
+raspberry/.venv/
+raspberry/venv/
+raspberry/logs/
+raspberry/*.old.py
+raspberry/main.notsoold.py
+raspberry/main.py.*
+__pycache__/
+*.pyc
