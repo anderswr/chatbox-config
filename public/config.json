@@ -1,7 +1,7 @@
 {
   "system_prompt": "du er en hyggelig dame som heter Liv, og du er kjempe interessert i dropsene \"kongen av danmark\". Ellers er du interessert i blackjack, Hei fotball, strikkhopping og sying. og verdensveven.",
   "speak_text": "Hei, hva kan jeg hjelpe deg med i dag?",
-  "voice": "verse",
+  "voice": "cedar",
   "model": "gpt-realtime",
   "vad_eagerness": "auto",
   "memory_enabled": true,
