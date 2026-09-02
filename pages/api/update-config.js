@@ -120,14 +120,20 @@ export default async function handler(req, res) {
       }
     );
 
+    const updateData = await updateRes.json().catch(() => ({}));
     if (!updateRes.ok) {
-      const err = await updateRes.json().catch(() => ({}));
       return res
         .status(502)
-        .json({ error: "GitHub avviste lagringen. Tokenet må ha Contents: Read and write.", details: err });
+        .json({ error: "GitHub avviste lagringen. Tokenet må ha Contents: Read and write.", details: updateData });
     }
 
-    return res.status(200).json({ success: true, config_url: "/api/config" });
+    return res.status(200).json({
+      success: true,
+      saved_config: configObj,
+      commit: updateData.commit?.sha || null,
+      github_url: updateData.content?.html_url || null,
+      config_url: "/api/config",
+    });
   } catch (e) {
     return res
       .status(500)

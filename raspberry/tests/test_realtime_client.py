@@ -121,6 +121,18 @@ class RealtimeClientTests(unittest.IsolatedAsyncioTestCase):
             with self.assertRaisesRegex(RuntimeError, "HTTP 404.*Not Found"):
                 self.client._access_token()
 
+    def test_deployment_not_found_has_actionable_error(self):
+        self.client.config = replace(
+            self.client.config,
+            api_key=None,
+            token_url="https://stale.vercel.app/api/realtime-token",
+            device_token="device-secret",
+        )
+        response = Mock(ok=False, status_code=404, text="DEPLOYMENT_NOT_FOUND")
+        with patch("raspberry.realtime_client.requests.post", return_value=response):
+            with self.assertRaisesRegex(RuntimeError, "Settings → Domains"):
+                self.client._access_token()
+
     def test_local_key_is_fallback_when_token_endpoint_is_down(self):
         self.client.config = replace(
             self.client.config,

@@ -14,6 +14,16 @@ const INITIAL = {
   max_output_tokens: 512, reasoning_effort: "low",
 };
 
+const REASONING_OPTIONS = [
+  ["minimal", "Svært kort (minst tenking)"], ["low", "Kort (rask)"],
+  ["medium", "Balansert (middels)"], ["high", "Grundig (mer tenking)"],
+  ["xhigh", "Svært grundig (mest tenking)"],
+];
+
+function modelName(value) {
+  return REALTIME_MODELS.find((option) => option.value === value)?.label || value;
+}
+
 function Field({ label, hint, children }) {
   return <label className="field"><span>{label}</span>{hint && <small>{hint}</small>}{children}</label>;
 }
@@ -79,10 +89,19 @@ export default function Admin() {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
     });
     const result = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      setSaving(false);
+      setMessage(`${result.error || "Kunne ikke lagre innstillingene."}${result.details?.message ? ` ${result.details.message}` : ""}`);
+      return;
+    }
+    const commitQuery = /^[a-f0-9]{40}$/i.test(result.commit || "") ? `ref=${result.commit}&` : "";
+    const verification = await fetch(`/api/config?${commitQuery}t=${Date.now()}`, { cache: "no-store" });
+    const verifiedConfig = await verification.json().catch(() => null);
+    const verified = verification.ok && verifiedConfig && Object.entries(result.saved_config).every(([key, value]) => verifiedConfig[key] === value);
     setSaving(false);
-    setMessage(response.ok
-      ? "Alle innstillingene er lagret. Boksen tar dem i bruk ved oppstart eller innen fem minutter."
-      : `${result.error || "Kunne ikke lagre innstillingene."}${result.details?.message ? ` ${result.details.message}` : ""}`);
+    setMessage(verified
+      ? `Alle innstillingene er lagret og kontrollert i GitHub.${result.github_url ? ` ${result.github_url}` : ""}`
+      : "GitHub tok imot lagringen, men kontrollen av den nye config-filen feilet. Prøv å laste siden på nytt.");
   }
 
   if (!loggedIn) return <Login onLogin={() => setLoggedIn(true)} />;
@@ -98,7 +117,7 @@ export default function Admin() {
         <article className="status-card status-positive"><span>Boksen</span><strong><i /> Konfigurasjon klar</strong></article>
         <article className="status-card"><span>Oppdatering</span><strong>Hvert 5. minutt</strong></article>
         <article className="status-card"><span>Lokalt minne</span><strong>{config.memory_enabled ? "Slått på" : "Slått av"}</strong></article>
-        <article className="status-card"><span>Modell</span><strong>{config.model}</strong></article>
+        <article className="status-card"><span>Samtalemodell</span><strong>{modelName(config.model)}</strong></article>
       </section>
 
       <form onSubmit={save} className="settings-grid">
@@ -133,17 +152,17 @@ export default function Admin() {
           </section>
 
           <details className="technical-card" open>
-            <summary><span><strong>Tekniske innstillinger</strong><small>Modell, støyreduksjon, transkripsjon og tokengrense.</small></span><b>⌄</b></summary>
+            <summary><span><strong>Tekniske innstillinger</strong><small>Samtalemodell, støyfjerning, teksting og svarlengde.</small></span><b>⌄</b></summary>
             <div className="technical-fields">
-              <Field label="Realtime-modell"><select value={config.model} onChange={(e) => update("model", e.target.value)}>{REALTIME_MODELS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></Field>
-              <Field label="Semantic VAD"><select value={config.vad_eagerness} onChange={(e) => update("vad_eagerness", e.target.value)}>{VAD_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></Field>
+              <Field label="Samtalemodell"><select value={config.model} onChange={(e) => update("model", e.target.value)}>{REALTIME_MODELS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></Field>
+              <Field label="Når skal Liv svare?"><select value={config.vad_eagerness} onChange={(e) => update("vad_eagerness", e.target.value)}>{VAD_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></Field>
               <Field label="Støyreduksjon"><select value={config.noise_reduction} onChange={(e) => update("noise_reduction", e.target.value)}><option value="far_field">Far field – Jabra</option><option value="near_field">Near field – nær mikrofon</option><option value="off">Av</option></select></Field>
               <Field label="Transkripsjon"><select value={config.transcription_model} onChange={(e) => update("transcription_model", e.target.value)}>{TRANSCRIPTION_MODELS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></Field>
               <div className="field-pair">
-                <Field label="Maks output-tokens"><input type="number" min="1" max="4096" value={config.max_output_tokens} onChange={(e) => update("max_output_tokens", e.target.value)} /></Field>
+                <Field label="Maksimal svarlengde"><input type="number" min="1" max="4096" value={config.max_output_tokens} onChange={(e) => update("max_output_tokens", e.target.value)} /></Field>
                 <Field label="Minner per samtale"><input type="number" min="0" max="50" value={config.memory_limit} onChange={(e) => update("memory_limit", e.target.value)} disabled={!config.memory_enabled} /></Field>
               </div>
-              <Field label="Reasoning effort"><select value={config.reasoning_effort} onChange={(e) => update("reasoning_effort", e.target.value)}>{["minimal", "low", "medium", "high", "xhigh"].map((value) => <option key={value}>{value}</option>)}</select></Field>
+              <Field label="Hvor grundig skal Liv tenke?"><select value={config.reasoning_effort} onChange={(e) => update("reasoning_effort", e.target.value)}>{REASONING_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></Field>
             </div>
           </details>
         </div>

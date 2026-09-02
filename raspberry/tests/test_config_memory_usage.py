@@ -10,10 +10,10 @@ from raspberry.usage import TokenUsage, UsageTracker
 
 
 class ConfigTests(unittest.TestCase):
-    def test_default_config_uses_raw_github(self):
+    def test_default_config_uses_uncached_api(self):
         self.assertEqual(
             DEFAULT_CONFIG_URL,
-            "https://raw.githubusercontent.com/anderswr/chatbox-config/main/public/config.json",
+            "https://chatbox-config.vercel.app/api/config",
         )
 
     def test_loads_realtime_settings(self):

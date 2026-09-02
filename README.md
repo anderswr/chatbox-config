@@ -4,7 +4,7 @@ Liv er en modulær Raspberry Pi-basert samtalepartner som bruker GA-versjonen av
 OpenAI Realtime API over WebSocket. Mikrofon og høyttaler strømmes samtidig,
 `semantic_vad` oppdager turer, og brukeren kan avbryte Liv mens hun snakker.
 
-Administrasjon: https://chatbox-config-fruliv.vercel.app
+Administrasjon: https://chatbox-config.vercel.app
 
 ### Raspberry Pi
 
@@ -26,8 +26,8 @@ beskyttet miljøvariabel i Vercel og aldri i offentlig `config.json`.
 Den langsiktige OpenAI-nøkkelen ligger bare som `OPENAI_API_KEY` i Vercel og
 sendes aldri til Raspberry Pi-en, nettsiden eller `config.json`. Boksen har kun
 en egen `RASPBERRY_DEVICE_TOKEN` i `raspberry/.env` og henter en kortlivet
-Realtime client secret fra Vercel ved hver tilkobling. Samtaleinnstillingene hentes direkte fra
-GitHubs raw-adresse hvert femte minutt; en faktisk endring oppretter en ny
+Realtime client secret fra Vercel ved hver tilkobling. Samtaleinnstillingene hentes fra
+`/api/config` hvert femte minutt; endepunktet leser siste GitHub-versjon uten cache. En faktisk endring oppretter en ny
 Realtime-session, mens en uendret fil ikke avbryter samtalen.
 `REALTIME_MODEL` i den lokale filen er reserve hvis nettet er nede. Stemmen kan
 ikke byttes etter første lyd i en session, derfor brukes webendringen først i
@@ -79,7 +79,7 @@ Systemd-uniten leser `/home/piadmin/chatbox/raspberry/.env`. Minimum er:
 
 ```dotenv
 RASPBERRY_DEVICE_TOKEN=lang-tilfeldig-hemmelig-verdi
-REALTIME_TOKEN_URL=https://chatbox-config-fruliv.vercel.app/api/realtime-token
+REALTIME_TOKEN_URL=https://chatbox-config.vercel.app/api/realtime-token
 ```
 
 Direkte `OPENAI_API_KEY` på boksen støttes bare som reserve for lokal feilsøking.
@@ -99,13 +99,24 @@ cd /home/piadmin/chatbox && ./raspberry/install-service.sh
 `is-enabled` skal svare `enabled`. Feil om `.venv/bin/python` betyr normalt at
 miljøet mangler eller ble flyttet; skriptet bygger det på nytt. Kontroller også
 nettinnstillingene med
-`curl -fsS https://raw.githubusercontent.com/anderswr/chatbox-config/main/public/config.json`.
+`curl -fsS https://chatbox-config.vercel.app/api/config`.
 
 Vercel-domenet skal aldri gjettes eller endres i klientkoden. Bruk domenet som
 står under **Vercel → Project → Domains** i `REALTIME_TOKEN_URL`. En HTTP 404 på
 `/api/realtime-token` betyr vanligvis at GitHub-versjonen med API-ruten ikke er
 deployet til det eksisterende Vercel-prosjektet; det oppretter ikke et nytt
 domene å endre URL-en i klienten til.
+
+At `pages/api/realtime-token.js` vises på GitHub betyr bare at kildekoden er
+merget. Det betyr ikke at Vercel har bygget den eller at et tidligere domene
+fortsatt peker på prosjektet. Etter deploy kan riktig domene kontrolleres uten
+hemmeligheter med:
+
+```bash
+curl -fsS https://chatbox-config.vercel.app/api/health
+```
+
+Svaret skal inneholde `"ok":true` og commit-ID-en Vercel faktisk kjører.
 
 Før tjenesten restartes kan hele kjeden testes uten å åpne lydkortet:
 
@@ -148,7 +159,7 @@ Realtime-konfigurasjonen og OpenAI – ikke i høyttaleren.
 ### Lagring fra administrasjonssiden
 
 Lagreknappen oppdaterer `public/config.json` gjennom GitHub Contents API.
-`/api/config` leser alltid siste versjon direkte fra GitHub med cache avslått.
+`/api/config` leser alltid `public/config.json` direkte fra GitHub med cache avslått.
 Dermed krever senere innstillingsendringer ingen ny Vercel-build. Denne
 versjonen må likevel deployes én gang for å installere endepunktet.
 

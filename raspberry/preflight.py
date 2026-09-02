@@ -21,6 +21,14 @@ def main() -> int:
             headers={"Authorization": f"Bearer {config.device_token}"},
             timeout=10,
         )
+        if "DEPLOYMENT_NOT_FOUND" in response.text:
+            print(
+                "FEIL: Vercel sier DEPLOYMENT_NOT_FOUND. Domenet i REALTIME_TOKEN_URL "
+                "er ikke koblet til en aktiv deployment. Kopier Production Domain fra "
+                "Vercel → Project → Settings → Domains og deploy main.",
+                file=sys.stderr,
+            )
+            return 2
         if response.status_code == 404:
             print(
                 f"FEIL: {config.token_url} finnes ikke i aktiv Vercel-deployment. "
@@ -50,4 +58,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -48,7 +48,7 @@ DEFAULT_PROMPT = (
 )
 
 DEFAULT_CONFIG_URL = (
-    "https://raw.githubusercontent.com/anderswr/chatbox-config/main/public/config.json"
+    "https://chatbox-config.vercel.app/api/config"
 )
 
 

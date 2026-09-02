@@ -154,6 +154,12 @@ class RealtimeClient:
                         response.status_code,
                     )
                     return self.config.api_key
+                if "DEPLOYMENT_NOT_FOUND" in details:
+                    raise RuntimeError(
+                        f"Vercel-domenet i REALTIME_TOKEN_URL peker ikke på en aktiv deployment: "
+                        f"{self.config.token_url}. Finn produksjonsdomenet under Vercel → Project → "
+                        "Settings → Domains, deploy main, og oppdater raspberry/.env."
+                    )
                 raise RuntimeError(
                     f"Token-endepunktet {self.config.token_url} svarte HTTP "
                     f"{response.status_code}: {details or 'tomt svar'}"

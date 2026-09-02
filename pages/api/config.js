@@ -4,6 +4,11 @@ export default async function handler(req, res) {
   if (req.method !== "GET") return res.status(405).json({ error: "Kun GET er støttet" });
 
   const settings = githubSettings();
+  const requestedRef = typeof req.query.ref === "string" ? req.query.ref : "";
+  if (requestedRef && !/^[a-f0-9]{40}$/i.test(requestedRef)) {
+    return res.status(400).json({ error: "Ugyldig commit-referanse" });
+  }
+  if (requestedRef) settings.branch = requestedRef;
   try {
     const response = await fetch(contentsUrl(settings), {
       headers: githubHeaders(settings.token),
@@ -23,4 +28,3 @@ export default async function handler(req, res) {
     return res.status(502).json({ error: "Kunne ikke lese konfigurasjonen", details: error.message });
   }
 }
-

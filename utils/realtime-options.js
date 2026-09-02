@@ -1,10 +1,10 @@
 export const REALTIME_MODELS = [
-  { value: "gpt-realtime-2.1", label: "GPT Realtime 2.1 – nyere reasoning-modell" },
-  { value: "gpt-realtime-2.1-mini", label: "GPT Realtime 2.1 Mini – nyere mini-modell" },
-  { value: "gpt-realtime-2", label: "GPT Realtime 2" },
-  { value: "gpt-realtime-1.5", label: "GPT Realtime 1.5" },
-  { value: "gpt-realtime", label: "GPT Realtime – stabil alias" },
-  { value: "gpt-realtime-mini", label: "GPT Realtime Mini" },
+  { value: "gpt-realtime-2.1", label: "Nyeste samtalemodell (mest avansert)" },
+  { value: "gpt-realtime-2.1-mini", label: "Nyeste lettmodell (rask og rimelig)" },
+  { value: "gpt-realtime-2", label: "Avansert samtalemodell (grundig)" },
+  { value: "gpt-realtime-1.5", label: "Tidligere samtalemodell (eldre)" },
+  { value: "gpt-realtime", label: "Standard samtalemodell (anbefalt)" },
+  { value: "gpt-realtime-mini", label: "Lett samtalemodell (rask)" },
 ];
 
 export const REALTIME_VOICES = [
@@ -21,8 +21,8 @@ export const REALTIME_VOICES = [
 ];
 
 export const TRANSCRIPTION_MODELS = [
-  { value: "gpt-realtime-whisper", label: "Realtime Whisper – lav latency" },
-  { value: "gpt-4o-mini-transcribe", label: "GPT-4o Mini Transcribe" },
-  { value: "gpt-4o-transcribe", label: "GPT-4o Transcribe" },
-  { value: "whisper-1", label: "Whisper 1" },
+  { value: "gpt-realtime-whisper", label: "Direkte teksting (lav ventetid)" },
+  { value: "gpt-4o-mini-transcribe", label: "Rask teksting (lett modell)" },
+  { value: "gpt-4o-transcribe", label: "Nøyaktig teksting (høy kvalitet)" },
+  { value: "whisper-1", label: "Klassisk teksting (eldre modell)" },
 ];

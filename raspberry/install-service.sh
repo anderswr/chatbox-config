@@ -42,10 +42,17 @@ if ! grep -Eq '^(RASPBERRY_DEVICE_TOKEN=.{16,}|OPENAI_API_KEY=sk-|openainokkel=s
   exit 1
 fi
 
-# En eldre .env kan overstyre den nye standarden med en statisk Vercel-fil som
-# ikke finnes. Konfigurasjonen er offentlig og kan hentes direkte fra GitHub.
+# En eldre .env kan overstyre den nye standarden med en statisk Vercel-fil.
+# API-ruten leser samme GitHub-fil uten CDN-cache.
 sed -i \
-  's#^CHATBOX_CONFIG_URL=https://chatbox-config-fruliv.vercel.app/config.json$#CHATBOX_CONFIG_URL=https://raw.githubusercontent.com/anderswr/chatbox-config/main/public/config.json#' \
+  -e 's#^CHATBOX_CONFIG_URL=https://chatbox-config-fruliv.vercel.app/config.json$#CHATBOX_CONFIG_URL=https://chatbox-config.vercel.app/api/config#' \
+  -e 's#^CHATBOX_CONFIG_URL=https://raw.githubusercontent.com/anderswr/chatbox-config/main/public/config.json$#CHATBOX_CONFIG_URL=https://chatbox-config.vercel.app/api/config#' \
+  raspberry/.env
+
+# Rett den tidligere dokumenterte, men ugyldige Vercel-adressen uten å endre
+# andre egendefinerte domener.
+sed -i \
+  's#^REALTIME_TOKEN_URL=https://chatbox-config-fruliv.vercel.app/api/realtime-token$#REALTIME_TOKEN_URL=https://chatbox-config.vercel.app/api/realtime-token#' \
   raspberry/.env
 
 sudo cp raspberry/chatbox.service /etc/systemd/system/chatbox.service
