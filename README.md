@@ -39,6 +39,11 @@ Det er uavhengig av Memory i ChatGPT-appen. Bare ytringer som ser ut som fakta
 eller preferanser lagres. Sett `MEMORY_ENABLED=false` for å deaktivere dette.
 Tokenbruk logges for siste svar, inneværende prosess og akkumulert total.
 
+`max_output_tokens` teller både tekst- og lydtokens. En grense på `512` gir i
+praksis ofte bare rundt 20 sekunder tale og kan avslutte midt i et ord. Standard
+er derfor `2048`. Journalen logger en tydelig advarsel med årsak hvis OpenAI
+likevel returnerer et svar med status `incomplete`.
+
 Admin-siden styrer hovedinstruks, oppstartssetning, modell og stemme. Under
 avanserte taleinnstillinger kan man også styre talehastighet (0,25–1,5×),
 støyreduksjon for nær- eller fjernmikrofon, transkripsjonsmodell, maksimal

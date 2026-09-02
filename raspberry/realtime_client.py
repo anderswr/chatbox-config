@@ -113,9 +113,18 @@ class RealtimeClient:
             elif event_type == "response.output_audio_transcript.done":
                 logging.info("Liv: %s", event.get("transcript", "").strip())
             elif event_type == "response.done":
-                self.usage.add((event.get("response") or {}).get("usage"))
-                status = (event.get("response") or {}).get("status", "ukjent")
-                logging.info("Realtime-svar ferdig: status=%s", status)
+                response = event.get("response") or {}
+                self.usage.add(response.get("usage"))
+                status = response.get("status", "ukjent")
+                status_details = response.get("status_details") or {}
+                if status == "incomplete":
+                    logging.warning(
+                        "Realtime-svar ble avkortet: grunn=%s, maks output-tokens=%d",
+                        status_details.get("reason", "ukjent"),
+                        self.config.max_output_tokens,
+                    )
+                else:
+                    logging.info("Realtime-svar ferdig: status=%s", status)
             elif event_type == "error":
                 raise RuntimeError(json.dumps(event.get("error", event), ensure_ascii=False))
 

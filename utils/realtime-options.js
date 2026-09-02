@@ -8,16 +8,16 @@ export const REALTIME_MODELS = [
 ];
 
 export const REALTIME_VOICES = [
-  { value: "marin", label: "Marin – anbefalt" },
-  { value: "cedar", label: "Cedar – anbefalt" },
-  { value: "alloy", label: "Alloy" },
-  { value: "ash", label: "Ash" },
-  { value: "ballad", label: "Ballad" },
-  { value: "coral", label: "Coral" },
-  { value: "echo", label: "Echo" },
-  { value: "sage", label: "Sage" },
-  { value: "shimmer", label: "Shimmer" },
-  { value: "verse", label: "Verse" },
+  { value: "marin", label: "Mari (varm og naturlig)" },
+  { value: "cedar", label: "Einar (rolig og tydelig)" },
+  { value: "alloy", label: "Nora (nøytral og klar)" },
+  { value: "ash", label: "Ask (rolig og direkte)" },
+  { value: "ballad", label: "Balder (myk og fortellende)" },
+  { value: "coral", label: "Kari (lys og vennlig)" },
+  { value: "echo", label: "Ekko (dyp og tydelig)" },
+  { value: "sage", label: "Saga (rolig og klok)" },
+  { value: "shimmer", label: "Solveig (lys og energisk)" },
+  { value: "verse", label: "Vidar (varm og uttrykksfull)" },
 ];
 
 export const TRANSCRIPTION_MODELS = [

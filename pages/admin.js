@@ -11,7 +11,7 @@ const INITIAL = {
   system_prompt: "", speak_text: "", voice: "marin", model: "gpt-realtime",
   vad_eagerness: "auto", memory_enabled: true, memory_limit: 8, speed: 0.9,
   noise_reduction: "far_field", transcription_model: "gpt-realtime-whisper",
-  max_output_tokens: 512, reasoning_effort: "low",
+  max_output_tokens: 2048, reasoning_effort: "low",
 };
 
 const REASONING_OPTIONS = [
@@ -159,7 +159,7 @@ export default function Admin() {
               <Field label="Støyreduksjon"><select value={config.noise_reduction} onChange={(e) => update("noise_reduction", e.target.value)}><option value="far_field">Far field – Jabra</option><option value="near_field">Near field – nær mikrofon</option><option value="off">Av</option></select></Field>
               <Field label="Transkripsjon"><select value={config.transcription_model} onChange={(e) => update("transcription_model", e.target.value)}>{TRANSCRIPTION_MODELS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></Field>
               <div className="field-pair">
-                <Field label="Maksimal svarlengde"><input type="number" min="1" max="4096" value={config.max_output_tokens} onChange={(e) => update("max_output_tokens", e.target.value)} /></Field>
+                <Field label="Maksimal svarlengde"><select value={config.max_output_tokens} onChange={(e) => update("max_output_tokens", e.target.value)}><option value="512">Kort (ca. 20 sek.)</option><option value="1024">Normal (ca. 40 sek.)</option><option value="2048">Lang (anbefalt)</option><option value="4096">Svært lang (mer bruk)</option></select></Field>
                 <Field label="Minner per samtale"><input type="number" min="0" max="50" value={config.memory_limit} onChange={(e) => update("memory_limit", e.target.value)} disabled={!config.memory_enabled} /></Field>
               </div>
               <Field label="Hvor grundig skal Liv tenke?"><select value={config.reasoning_effort} onChange={(e) => update("reasoning_effort", e.target.value)}>{REASONING_OPTIONS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></Field>

@@ -155,7 +155,7 @@ class Config:
         )
         if transcription_model not in SUPPORTED_TRANSCRIPTION_MODELS:
             raise ValueError(f"Ugyldig transkripsjonsmodell: {transcription_model}")
-        max_output_tokens = int(remote.get("max_output_tokens", os.getenv("MAX_OUTPUT_TOKENS", "512")))
+        max_output_tokens = int(remote.get("max_output_tokens", os.getenv("MAX_OUTPUT_TOKENS", "2048")))
         if not 1 <= max_output_tokens <= 4096:
             raise ValueError("MAX_OUTPUT_TOKENS må være mellom 1 og 4096")
         reasoning_effort = str(remote.get("reasoning_effort") or os.getenv("REASONING_EFFORT", "low"))
