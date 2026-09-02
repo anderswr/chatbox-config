@@ -1,8 +1,12 @@
-export default function handler(req, res) {
-  const correctPassword = process.env.NEXT_PUBLIC_PIADMIN_PWD;
-  const { password } = req.body;
+import { credentialsAreValid, setAdminSession } from "../../utils/admin-auth";
 
-  if (password === correctPassword) {
+export default function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Kun POST er støttet" });
+  }
+  const { username, password } = req.body || {};
+  if (credentialsAreValid(username, password)) {
+    setAdminSession(res);
     res.status(200).json({ ok: true });
   } else {
     res.status(401).json({ ok: false });
